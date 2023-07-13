@@ -1,4 +1,4 @@
-.not-found__status-wrapper {
+.wrapper {
   position: relative;
   z-index: 1;
   width: auto;
@@ -9,10 +9,10 @@
   text-align: center;
 }
 
-.not-found__status-title {
+.title {
   color: #4481c3;
 }
 
-.not-found__button-back {
+.button-back {
   margin-top: 20px;
 }

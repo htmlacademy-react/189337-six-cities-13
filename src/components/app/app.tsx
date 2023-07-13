@@ -14,12 +14,12 @@ export default function App(): JSX.Element {
         <Route path={AppRoute.Main} element={<Main cardsCount={Settings.cardsCount} />} />
         <Route path={AppRoute.Login} element={<Login />} />
         <Route path={AppRoute.Favorites} element={
-          <PrivateRoute authorizationStatus={Settings.authorizationStatus}>
+          <PrivateRoute isAuth={Settings.isAuth}>
             <Favorites />
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Offer} element={<Offer />} />
+        <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

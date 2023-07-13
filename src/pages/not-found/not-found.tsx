@@ -1,6 +1,7 @@
 import Logo from '../../components/logo/logo';
 import { Link } from 'react-router-dom';
-import './not-found.css';
+import styles from './not-found.module.css';
+import { AppRoute } from '../../const';
 
 export default function NotFound(): JSX.Element {
   return (
@@ -18,13 +19,13 @@ export default function NotFound(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
             <h1 className="visually-hidden">404 Page not found</h1>
-            <div className="not-found__status-wrapper">
-              <b className="favorites__status not-found__status-title">404</b>
+            <div className={styles.wrapper}>
+              <b className={`favorites__status ${styles.title}`}>404</b>
               <b className="favorites__status">Page not found</b>
               <p className="favorites__status-description">We couldn&apos;t find that page, please check the URL and try again.</p>
               <Link
-                className="form__submit button not-found__button-back"
-                to="/"
+                className={`form__submit button ${styles['button-back']}`}
+                to={AppRoute.Main}
               >
                 Go to main
               </Link>

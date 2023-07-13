@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type LogoProps = {
   active?: boolean;
@@ -8,7 +9,7 @@ type LogoProps = {
 export default function Logo({ active = false, isFooter = false }: LogoProps): JSX.Element {
   const classType = isFooter ? 'footer' : 'header';
   return (
-    <Link className={`${classType}__logo-link ${active ? 'header__logo-link--active' : ''}`} to="/">
+    <Link className={`${classType}__logo-link ${active ? 'header__logo-link--active' : ''}`} to={AppRoute.Main}>
       <img
         className={`${classType}__logo`}
         src="img/logo.svg"
