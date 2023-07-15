@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Card from '../../components/card/card';
 import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
 
 type MainScreenProps = {
   cardsCount: number;
@@ -9,6 +10,9 @@ type MainScreenProps = {
 export default function Main({ cardsCount }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

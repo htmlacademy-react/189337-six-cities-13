@@ -1,13 +1,18 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
 
 export default function Favorites(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities: favorites</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo/>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -194,7 +199,7 @@ export default function Favorites(): JSX.Element {
                         </div>
                       </div>
                       <h2 className="place-card__name">
-                        <a href="#">White castle</a>
+                        <Link to="#">White castle</Link>
                       </h2>
                       <p className="place-card__type">Apartment</p>
                     </div>
