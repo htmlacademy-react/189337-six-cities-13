@@ -5,6 +5,12 @@ export enum AppRoute {
   Offer = '/offer'
 }
 
+export enum OfferTypes {
+  House = 'house',
+  Apartment = 'apartment',
+  Hotel = 'hotel'
+}
+
 export const Settings = {
   cardsCount: 5,
   isAuth: false
