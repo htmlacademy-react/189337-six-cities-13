@@ -12,6 +12,5 @@ export enum OfferTypes {
 }
 
 export const Settings = {
-  cardsCount: 5,
   isAuth: false
 };

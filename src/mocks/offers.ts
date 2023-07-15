@@ -7,7 +7,7 @@ export const offers: Offer[] = [
     title: 'Beautiful & luxurious apartment at great location',
     type: OfferTypes.House,
     price: 716,
-    previewImage: 'https://13.design.pages.academy/static/hotel/4.jpg',
+    previewImage: 'img/apartment-01.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -30,7 +30,7 @@ export const offers: Offer[] = [
     title: 'Canal View Prinsengracht',
     type: OfferTypes.Apartment,
     price: 177,
-    previewImage: 'https://13.design.pages.academy/static/hotel/15.jpg',
+    previewImage: 'img/apartment-02.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -53,7 +53,7 @@ export const offers: Offer[] = [
     title: 'Tile House',
     type: OfferTypes.House,
     price: 107,
-    previewImage: 'https://13.design.pages.academy/static/hotel/12.jpg',
+    previewImage: 'img/apartment-03.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -76,7 +76,7 @@ export const offers: Offer[] = [
     title: 'House in countryside',
     type: OfferTypes.Hotel,
     price: 327,
-    previewImage: 'https://13.design.pages.academy/static/hotel/3.jpg',
+    previewImage: 'img/apartment-01.jpg',
     city: {
       name: 'Paris',
       location: {

@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import Card from '../../components/card/card';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
+import CardList from '../../components/card-list/card-list';
+import { Offer } from '../../types/offers';
 
 type MainScreenProps = {
-  cardsCount: number;
+  offers: Offer [];
 }
 
-export default function Main({ cardsCount }: MainScreenProps): JSX.Element {
+export default function Main({ offers }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -72,9 +73,7 @@ export default function Main({ cardsCount }: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {Array(cardsCount).fill(<Card />)}
-              </div>
+              <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

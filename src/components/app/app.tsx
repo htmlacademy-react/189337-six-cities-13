@@ -1,28 +1,33 @@
-import Main from '../../pages/main/main';
-import Login from '../../pages/login/login';
-import Favorites from '../../pages/favorites/favorites';
-import Offer from '../../pages/offer/offer';
-import NotFound from '../../pages/not-found/not-found';
+import MainPage from '../../pages/main/main';
+import LoginPage from '../../pages/login/login';
+import FavoritesPage from '../../pages/favorites/favorites';
+import OfferPage from '../../pages/offer/offer';
+import NotFoundPage from '../../pages/not-found/not-found';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute, Settings } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import { Offer } from '../../types/offers';
 
-export default function App(): JSX.Element {
+type AppProps = {
+  offers: Offer [];
+}
+
+export default function App({ offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Main} element={<Main cardsCount={Settings.cardsCount} />} />
-          <Route path={AppRoute.Login} element={<Login />} />
+          <Route path={AppRoute.Main} element={<MainPage offers={offers} />} />
+          <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute isAuth={Settings.isAuth}>
-              <Favorites />
+              <FavoritesPage />
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
