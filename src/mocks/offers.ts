@@ -1,9 +1,9 @@
 import { OfferTypes } from '../const';
-import { Offer } from '../types/offers';
+import { GroupOfferDetailsById, Offer } from '../types/offers';
 
 export const offers: Offer[] = [
   {
-    id: crypto.randomUUID(),
+    id: 'O1',
     title: 'Beautiful & luxurious apartment at great location',
     type: OfferTypes.House,
     price: 716,
@@ -26,7 +26,7 @@ export const offers: Offer[] = [
     rating: 1.2
   },
   {
-    id: crypto.randomUUID(),
+    id: 'O2',
     title: 'Canal View Prinsengracht',
     type: OfferTypes.Apartment,
     price: 177,
@@ -49,7 +49,7 @@ export const offers: Offer[] = [
     rating: 2
   },
   {
-    id: crypto.randomUUID(),
+    id: 'O3',
     title: 'Tile House',
     type: OfferTypes.House,
     price: 107,
@@ -72,7 +72,7 @@ export const offers: Offer[] = [
     rating: 4
   },
   {
-    id: crypto.randomUUID(),
+    id: 'O4',
     title: 'House in countryside',
     type: OfferTypes.Hotel,
     price: 327,
@@ -95,3 +95,21 @@ export const offers: Offer[] = [
     rating: 4.6
   }
 ];
+
+export const offersDetails = offers.reduce((acc: GroupOfferDetailsById, offer) => {
+  acc[offer.id] = {
+    ...offer, ...{
+      description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+      bedrooms: Math.floor(Math.random() * 5) + 1,
+      goods: ['Wi-Fi', 'Washing machine'],
+      host: {
+        name: 'Oliver Conner',
+        avatarUrl: 'img/avatar-max.jpg',
+        isPro: false
+      },
+      images: [offer.previewImage],
+      maxAdults: Math.floor(Math.random() * 5) + 1
+    }
+  };
+  return acc;
+}, {});

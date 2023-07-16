@@ -26,7 +26,29 @@ export type Offer = {
   rating: number;
 };
 
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export type Details = {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
+}
+
+
+export type OfferDetails = Offer & Details;
+
 export type GroupOfferByCity = {
   city: City;
   offers: Offer [];
+}
+
+export type GroupOfferDetailsById = {
+  [key: string]: OfferDetails;
 }
