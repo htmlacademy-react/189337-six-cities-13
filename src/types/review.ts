@@ -1,4 +1,8 @@
-import { User } from './offers';
+export type User = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
 
 export type Review = {
   id: string;
