@@ -12,5 +12,5 @@ export enum OfferTypes {
 }
 
 export const Settings = {
-  isAuth: false
+  isAuth: true
 };

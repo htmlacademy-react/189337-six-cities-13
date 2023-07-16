@@ -25,3 +25,8 @@ export type Offer = {
   isPremium: boolean;
   rating: number;
 };
+
+export type GroupOfferByCity = {
+  city: City;
+  offers: Offer [];
+}

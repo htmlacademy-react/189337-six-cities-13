@@ -3,23 +3,25 @@ import { Offer } from '../../types/offers';
 
 type CardProps = {
   offer: Offer;
+  isMain?: boolean;
   active?: boolean;
 };
 
-export default function Card({ offer, active = false }: CardProps): JSX.Element {
+export default function Card({ offer, isMain = true, active = false }: CardProps): JSX.Element {
   const { title, price, type, rating, isPremium, isFavorite } = offer;
+  const classProp = isMain ? 'cities' : 'favorites';
   return (
-    <article className="cities__card place-card">
+    <article className={`${classProp}__card place-card`}>
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classProp}__image-wrapper place-card__image-wrapper`}>
         <Link to="#">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${!isMain ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -43,6 +45,6 @@ export default function Card({ offer, active = false }: CardProps): JSX.Element 
         </h2>
         <p className="place-card__type">{ type.charAt(0).toUpperCase() + type.slice(1) }</p>
       </div>
-    </article>
+    </article >
   );
 }

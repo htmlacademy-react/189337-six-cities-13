@@ -10,7 +10,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Offer } from '../../types/offers';
 
 type AppProps = {
-  offers: Offer [];
+  offers: Offer[];
 }
 
 export default function App({ offers }: AppProps): JSX.Element {
@@ -22,7 +22,7 @@ export default function App({ offers }: AppProps): JSX.Element {
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute isAuth={Settings.isAuth}>
-              <FavoritesPage />
+              <FavoritesPage offers={offers} />
             </PrivateRoute>
           }
           />

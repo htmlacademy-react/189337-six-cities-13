@@ -21,7 +21,7 @@ export const offers: Offer[] = [
       longitude: 2.342499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     rating: 1.2
   },
@@ -44,7 +44,7 @@ export const offers: Offer[] = [
       longitude: 2.330499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 2
   },
@@ -55,7 +55,7 @@ export const offers: Offer[] = [
     price: 107,
     previewImage: 'img/apartment-03.jpg',
     city: {
-      name: 'Paris',
+      name: 'Moscow',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
@@ -67,7 +67,7 @@ export const offers: Offer[] = [
       longitude: 2.335499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 4
   },
@@ -78,7 +78,7 @@ export const offers: Offer[] = [
     price: 327,
     previewImage: 'img/apartment-01.jpg',
     city: {
-      name: 'Paris',
+      name: 'Moscow',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
@@ -90,7 +90,7 @@ export const offers: Offer[] = [
       longitude: 2.358499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     rating: 4.6
   }
