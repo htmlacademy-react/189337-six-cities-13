@@ -1,6 +1,45 @@
-export default function ReviewForm() {
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { Review } from '../../types/review';
+
+type ReviewFormProps = {
+  addReview: (review: Review) => void;
+};
+
+const formState: Review = {
+  id: crypto.randomUUID(),
+  date: '',
+  user: {
+    name: 'Erokhin A.G.',
+    avatarUrl: 'img/avatar-max.jpg',
+    isPro: true
+  },
+  comment: '',
+  rating: 0
+};
+
+export default function ReviewForm({ addReview }: ReviewFormProps) {
+  const [formData, setFormData] = useState(formState);
+  const { comment, rating } = formData;
+  const handleChangeRating = ({ target: { defaultValue } }: ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, rating: +defaultValue }));
+  };
+  const handleChangeComment = ({ target: { value } }: ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, comment: value }));
+  };
+  const handleSubmitReview = ((evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setFormData((prev) => {
+      addReview({...prev, date: new Date().toISOString()});
+      return ({...prev, id: crypto.randomUUID(), comment: '', rating: 0 });
+    });
+  });
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleSubmitReview}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -11,6 +50,8 @@ export default function ReviewForm() {
           defaultValue={5}
           id="5-stars"
           type="radio"
+          checked={rating === 5}
+          onChange={handleChangeRating}
         />
         <label
           htmlFor="5-stars"
@@ -27,6 +68,8 @@ export default function ReviewForm() {
           defaultValue={4}
           id="4-stars"
           type="radio"
+          checked={rating === 4}
+          onChange={handleChangeRating}
         />
         <label
           htmlFor="4-stars"
@@ -43,6 +86,8 @@ export default function ReviewForm() {
           defaultValue={3}
           id="3-stars"
           type="radio"
+          checked={rating === 3}
+          onChange={handleChangeRating}
         />
         <label
           htmlFor="3-stars"
@@ -59,6 +104,8 @@ export default function ReviewForm() {
           defaultValue={2}
           id="2-stars"
           type="radio"
+          checked={rating === 2}
+          onChange={handleChangeRating}
         />
         <label
           htmlFor="2-stars"
@@ -75,6 +122,8 @@ export default function ReviewForm() {
           defaultValue={1}
           id="1-star"
           type="radio"
+          checked={rating === 1}
+          onChange={handleChangeRating}
         />
         <label
           htmlFor="1-star"
@@ -91,6 +140,8 @@ export default function ReviewForm() {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        onChange={handleChangeComment}
+        value={comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

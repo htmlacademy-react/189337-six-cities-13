@@ -33,7 +33,7 @@ export default function CardList({ offers, isMain = true }: CardListProps): JSX.
           getGroupOfferByCity(offers).map((groupOffer) => {
             const { city: { name } } = groupOffer;
             return (
-              <li key="name" className="favorites__locations-items">
+              <li key={name} className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
                     <a className="locations__item-link" href="#">

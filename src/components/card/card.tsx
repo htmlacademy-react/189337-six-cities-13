@@ -5,10 +5,9 @@ import { AppRoute } from '../../const';
 type CardProps = {
   offer: Offer;
   isMain?: boolean;
-  active?: boolean;
 };
 
-export default function Card({ offer, isMain = true, active = false }: CardProps): JSX.Element {
+export default function Card({ offer, isMain = true }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
   const classProp = isMain ? 'cities' : 'favorites';
   return (
