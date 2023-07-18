@@ -26,7 +26,7 @@ export type Offer = {
   rating: number;
 };
 
-export type Host = {
+export type User = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
@@ -36,7 +36,7 @@ export type Details = {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: User;
   images: string[];
   maxAdults: number;
 }
