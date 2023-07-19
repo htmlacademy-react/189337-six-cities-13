@@ -4,24 +4,24 @@ import { AppRoute } from '../../const';
 
 type CardProps = {
   offer: Offer;
-  isMain?: boolean;
+  className?: string;
 };
 
-export default function Card({ offer, isMain = true }: CardProps): JSX.Element {
+export default function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
-  const classProp = isMain ? 'cities' : 'favorites';
+  const isOnFavorite = className === 'favorites';
   return (
-    <article className={`${classProp}__card place-card`}>
+    <article className={`${className}__card place-card`}>
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className={`${classProp}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={isOnFavorite ? 150 : 260} height={isOnFavorite ? 110 : 200} alt="Place image" />
         </Link>
       </div>
-      <div className={`${!isMain ? 'favorites__card-info' : ''} place-card__info`}>
+      <div className={`${isOnFavorite ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -43,7 +43,7 @@ export default function Card({ offer, isMain = true }: CardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{ type.charAt(0).toUpperCase() + type.slice(1) }</p>
+        <p className="place-card__type">{type.charAt(0).toUpperCase() + type.slice(1)}</p>
       </div>
     </article >
   );

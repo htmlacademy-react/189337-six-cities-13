@@ -73,7 +73,7 @@ export default function Main({ offers }: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardList offers={offers}/>
+              <CardList classNameWrapper="cities__places-list  places__list tabs__content" classNameCardPrefix="cities" offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

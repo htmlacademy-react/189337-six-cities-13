@@ -1,8 +1,8 @@
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import CardList from '../../components/card-list/card-list';
 import { Offer } from '../../types/offers';
+import GroupCardList from '../../components/group-card-list/group-card-list';
 
 type FavoritesProps = {
   offers: Offer [];
@@ -19,7 +19,7 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <CardList isMain={false} offers={offers}/>
+            <GroupCardList offers={offers}/>
           </section>
         </div>
       </main>
