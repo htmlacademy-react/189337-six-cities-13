@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import { Offer, GroupOfferByCity } from '../../types/offers';
 import CardList from '../card-list/card-list';
+import { AppRoute } from '../../const';
 
 type GroupCardListProps = {
   offers: Offer[];
@@ -28,9 +30,9 @@ export default function GroupCardList({ offers }: GroupCardListProps): JSX.Eleme
             <li key={name} className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <a className="locations__item-link" href="#">
+                  <Link className="locations__item-link" to={AppRoute.Main}>
                     <span>{name}</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <CardList classNameWrapper="favorites__places" classNameCardPrefix="favorites" offers={groupOffer.offers} />
