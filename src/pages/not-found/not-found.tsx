@@ -2,19 +2,16 @@ import Logo from '../../components/logo/logo';
 import { Link } from 'react-router-dom';
 import styles from './not-found.module.css';
 import { AppRoute } from '../../const';
+import { Helmet } from 'react-helmet-async';
+import Header from '../../components/header/header';
 
 export default function NotFound(): JSX.Element {
   return (
     <div className="page page--favorites-empty">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Helmet>
+        <title>6 cities: not found</title>
+      </Helmet>
+      <Header showNav={false}/>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
