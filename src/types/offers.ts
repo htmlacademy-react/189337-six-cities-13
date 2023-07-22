@@ -42,7 +42,7 @@ export type Details = {
 }
 
 
-export type OfferDetails = Offer & Details;
+export type OfferDetails = Omit<Offer, 'previewImage'> & Details;
 
 export type GroupOfferByCity = {
   city: City;
