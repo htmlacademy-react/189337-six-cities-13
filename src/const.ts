@@ -12,5 +12,10 @@ export enum OfferTypes {
 }
 
 export const Settings = {
-  isAuth: true
+  isAuth: true,
+  activeCity: 'Amsterdam'
 };
+
+export const TAB_BAR_CITIES = [
+  'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
+] as const;
