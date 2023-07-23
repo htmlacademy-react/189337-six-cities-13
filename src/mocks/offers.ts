@@ -9,17 +9,17 @@ export const offers: Offer[] = [
     price: 716,
     previewImage: 'img/apartment-01.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
-        zoom: 13
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
       }
     },
     location: {
-      latitude: 48.868610000000004,
-      longitude: 2.342499,
-      zoom: 16
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -32,17 +32,17 @@ export const offers: Offer[] = [
     price: 177,
     previewImage: 'img/apartment-02.jpg',
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
-        zoom: 13
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
       }
     },
     location: {
-      latitude: 48.858610000000006,
-      longitude: 2.330499,
-      zoom: 16
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
     },
     isFavorite: true,
     isPremium: false,
@@ -55,17 +55,17 @@ export const offers: Offer[] = [
     price: 107,
     previewImage: 'img/apartment-03.jpg',
     city: {
-      name: 'Moscow',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
-        zoom: 13
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
       }
     },
     location: {
       latitude: 48.834610000000005,
       longitude: 2.335499,
-      zoom: 16
+      zoom: 8
     },
     isFavorite: true,
     isPremium: false,
@@ -78,17 +78,17 @@ export const offers: Offer[] = [
     price: 327,
     previewImage: 'img/apartment-01.jpg',
     city: {
-      name: 'Moscow',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
-        zoom: 13
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
       }
     },
     location: {
-      latitude: 48.85761,
-      longitude: 2.358499,
-      zoom: 16
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
