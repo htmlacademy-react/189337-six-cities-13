@@ -11,6 +11,22 @@ export enum OfferTypes {
   Hotel = 'hotel'
 }
 
+export enum ResourcePath {
+  Pin = 'img/pin.svg',
+  PinActive = 'img/pin-active.svg'
+}
+
+export enum MapSettings {
+  PinIconSizeX = 40,
+  PinIconSizeY = 40,
+  PinIconAnchorX = 20,
+  PinIconAnchorY = 40,
+  PinActiveIconSizeX = 40,
+  PinActiveIconSizeY = 40,
+  PinActiveIconAnchorX = 20,
+  PinActiveIconAnchorY = 40,
+}
+
 export const Settings = {
   isAuth: true,
   activeCity: 'Amsterdam'

@@ -1,4 +1,5 @@
 import { OfferTypes } from '../const';
+import { City } from './city';
 
 export type OfferType = typeof OfferTypes[keyof typeof OfferTypes];
 
@@ -6,11 +7,6 @@ export type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
-}
-
-export type City = {
-  name: string;
-  location: Location;
 }
 
 export type Offer = {

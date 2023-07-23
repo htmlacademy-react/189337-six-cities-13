@@ -6,9 +6,10 @@ import classNames from 'classnames';
 type CardProps = {
   offer: Offer;
   className?: string;
+  handleChangeSelectedOffer?: (offer: Offer | undefined) => void;
 };
 
-export default function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
+export default function Card({ offer, className = 'cities', handleChangeSelectedOffer }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
   const isOnMain = className === 'cities';
   const isOnFavorite = className === 'favorites';
@@ -17,6 +18,16 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
       'cities__card': isOnMain,
       'favorites__card': isOnFavorite
     }, 'place-card')}
+    onMouseEnter={() => {
+      if (handleChangeSelectedOffer) {
+        handleChangeSelectedOffer(offer);
+      }
+    }}
+    onMouseLeave={() => {
+      if (handleChangeSelectedOffer) {
+        handleChangeSelectedOffer(undefined);
+      }
+    }}
     >
       {isPremium &&
         <div className="place-card__mark">
