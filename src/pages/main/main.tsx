@@ -45,7 +45,7 @@ export default function Main({ offers }: MainScreenProps): JSX.Element {
                 />
               </section>
               <div className="cities__right-section">
-                <Map groupOffer={groupOffer} selectedOffer={selectedOffer} />
+                <Map className={'cities__map'} groupOffer={groupOffer} selectedOffer={selectedOffer} />
               </div>
             </div> :
             <div className="cities__places-container cities__places-container--empty container">

@@ -2,15 +2,30 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { Navigate, useParams } from 'react-router-dom';
 import { offers, offersDetails } from '../../mocks/offers';
-import { OfferDetails } from '../../types/offers';
+import { Offer as OfferType, GroupOfferByCity, OfferDetails } from '../../types/offers';
+import Map from '../../components/map/map';
 import ReviewSection from '../../components/review/review';
 import CardList from '../../components/card-list/card-list';
+import { getGroupOffersByCity } from '../../helpers';
+import { useState } from 'react';
 
 export default function Offer(): JSX.Element {
   const { id } = useParams();
   let current: OfferDetails | undefined;
+  let groupOffer: GroupOfferByCity | undefined;
+  const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>();
+  const handleChangeSelectedOffer = (offer: OfferType | undefined) => {
+    setSelectedOffer(offer);
+  };
   if (id) {
     current = offersDetails[id];
+    if (current) {
+      const groupOffersByCity = getGroupOffersByCity(offers);
+      groupOffer = groupOffersByCity[current.city.name];
+      if(groupOffer) {
+        groupOffer.offers = groupOffer.offers.slice(0,3);
+      }
+    }
   }
   return (
     id && current ?
@@ -107,18 +122,20 @@ export default function Offer(): JSX.Element {
                 <ReviewSection offerId={id} />
               </div>
             </div>
-            <section className="offer__map map" />
+            {groupOffer && <Map className={'offer__map'} groupOffer={groupOffer} selectedOffer={selectedOffer} />}
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <CardList
-                classNameWrapper="near-places__list places__list"
-                classNameCardPrefix="near-places"
-                offers={offers.slice(0,3)}
-              />
+              {groupOffer &&
+                <CardList
+                  classNameWrapper="near-places__list places__list"
+                  classNameCardPrefix="near-places"
+                  offers={groupOffer.offers}
+                  handleChangeSelectedOffer={handleChangeSelectedOffer}
+                />}
             </section>
           </div>
         </main>

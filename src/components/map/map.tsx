@@ -4,8 +4,10 @@ import { GroupOfferByCity, Offer } from '../../types/offers';
 import 'leaflet/dist/leaflet.css';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import { MapSettings, ResourcePath } from '../../const';
+import classNames from 'classnames';
 
 type MapProps = {
+  className: string;
   groupOffer: GroupOfferByCity;
   selectedOffer?: Offer;
 }
@@ -22,7 +24,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [MapSettings.PinActiveIconAnchorX, MapSettings.PinActiveIconAnchorY]
 });
 
-export default function Map({ groupOffer: { city, offers }, selectedOffer }: MapProps): JSX.Element {
+export default function Map({ className, groupOffer: { city, offers }, selectedOffer }: MapProps): JSX.Element {
   const refMap = useRef<HTMLElement | null>(null);
   const map = useMap(refMap, city);
 
@@ -52,6 +54,6 @@ export default function Map({ groupOffer: { city, offers }, selectedOffer }: Map
   }, [map, offers, selectedOffer]);
 
   return (
-    <section ref={refMap} className="cities__map map"></section>
+    <section ref={refMap} className={classNames(className, 'map')}></section>
   );
 }
