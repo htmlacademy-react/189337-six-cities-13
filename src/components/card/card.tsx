@@ -13,10 +13,12 @@ export default function Card({ offer, className = 'cities', handleChangeSelected
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
   const isOnMain = className === 'cities';
   const isOnFavorite = className === 'favorites';
+  const isOnOffer = className === 'near-places';
   return (
     <article className={classNames({
       'cities__card': isOnMain,
-      'favorites__card': isOnFavorite
+      'favorites__card': isOnFavorite,
+      'near-places__card': isOnOffer
     }, 'place-card')}
     onMouseEnter={() => {
       if (handleChangeSelectedOffer) {
@@ -35,7 +37,8 @@ export default function Card({ offer, className = 'cities', handleChangeSelected
         </div>}
       <div className={classNames({
         'cities__image-wrapper': isOnMain,
-        'favorites__image-wrapper': isOnFavorite
+        'favorites__image-wrapper': isOnFavorite,
+        'near-places__image-wrapper': isOnOffer
       }, 'place-card__image-wrapper')}
       >
         <Link to={`${AppRoute.Offer}/${id}`}>
@@ -54,7 +57,7 @@ export default function Card({ offer, className = 'cities', handleChangeSelected
             }, 'place-card__bookmark-button', 'button')
           } type="button"
           >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
+            <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
