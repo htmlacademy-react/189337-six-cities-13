@@ -3,6 +3,7 @@ import Header from '../../components/header/header';
 import CardList from '../../components/card-list/card-list';
 import { Offer } from '../../types/offers';
 import TabBar from '../../components/tab-bar/tab-bar';
+import { Settings, TAB_BAR_CITIES } from '../../const';
 
 type MainScreenProps = {
   offers: Offer [];
@@ -17,7 +18,7 @@ export default function Main({ offers }: MainScreenProps): JSX.Element {
       <Header activeLogo/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <TabBar />
+        <TabBar items={TAB_BAR_CITIES} activeItem={Settings.activeCity}/>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
