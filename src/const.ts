@@ -32,6 +32,6 @@ export const Settings = {
   activeCity: 'Amsterdam'
 };
 
-export const TAB_BAR_CITIES = [
+export const CITIES = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
 ] as const;

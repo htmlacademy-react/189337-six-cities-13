@@ -1,10 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { testAction } from './action';
+import { changeActiveCity } from './action';
+import { State } from '../types/state';
 
-const initialState = {};
+const initialState: State = {
+  activeCity: 'Amsterdam'
+};
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(testAction, (state) => state);
+  builder.addCase(changeActiveCity, (state, action) => {
+    state.activeCity = action.payload;
+  });
 });
 
 export { reducer };

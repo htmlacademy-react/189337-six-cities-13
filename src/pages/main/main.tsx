@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 import CardList from '../../components/card-list/card-list';
 import { GroupOfferByCity, Offer } from '../../types/offers';
 import TabBar from '../../components/tab-bar/tab-bar';
-import { Settings, TAB_BAR_CITIES } from '../../const';
+import { Settings, CITIES } from '../../const';
 import SortingMenu from '../../components/sorting-menu/sorting-menu';
 import Map from '../../components/map/map';
 import { getGroupOffersByCity } from '../../helpers';
@@ -18,9 +18,11 @@ export default function Main({ offers }: MainScreenProps): JSX.Element {
   const groupOffersByCity = getGroupOffersByCity(offers);
   const groupOffer: GroupOfferByCity | undefined = groupOffersByCity[Settings.activeCity];
   const isNotEmpty = groupOffer && !!groupOffer.offers.length;
+
   const handleChangeSelectedOffer = (offer?: Offer | null) => {
     setSelectedOffer(offer);
   };
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -29,7 +31,7 @@ export default function Main({ offers }: MainScreenProps): JSX.Element {
       <Header activeLogo />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <TabBar items={TAB_BAR_CITIES} activeItem={Settings.activeCity} />
+        <TabBar items={CITIES} />
         <div className="cities">
           {isNotEmpty ?
             <div className="cities__places-container container">
