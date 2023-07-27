@@ -6,17 +6,26 @@ import classNames from 'classnames';
 type CardProps = {
   offer: Offer;
   className?: string;
+  handleChangeSelectedOffer?: (offer: Offer | null) => void;
 };
 
-export default function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
+export default function Card({ offer, className = 'cities', handleChangeSelectedOffer }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
   const isOnMain = className === 'cities';
   const isOnFavorite = className === 'favorites';
+  const isOnOffer = className === 'near-places';
   return (
     <article className={classNames({
       'cities__card': isOnMain,
-      'favorites__card': isOnFavorite
+      'favorites__card': isOnFavorite,
+      'near-places__card': isOnOffer
     }, 'place-card')}
+    onMouseEnter={() => {
+      handleChangeSelectedOffer?.(offer);
+    }}
+    onMouseLeave={() => {
+      handleChangeSelectedOffer?.(null);
+    }}
     >
       {isPremium &&
         <div className="place-card__mark">
@@ -24,7 +33,8 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
         </div>}
       <div className={classNames({
         'cities__image-wrapper': isOnMain,
-        'favorites__image-wrapper': isOnFavorite
+        'favorites__image-wrapper': isOnFavorite,
+        'near-places__image-wrapper': isOnOffer
       }, 'place-card__image-wrapper')}
       >
         <Link to={`${AppRoute.Offer}/${id}`}>
@@ -43,7 +53,7 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
             }, 'place-card__bookmark-button', 'button')
           } type="button"
           >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
+            <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>

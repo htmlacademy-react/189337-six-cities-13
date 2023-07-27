@@ -2,29 +2,23 @@ import { Link } from 'react-router-dom';
 import { Offer, GroupOfferByCity } from '../../types/offers';
 import CardList from '../card-list/card-list';
 import { AppRoute } from '../../const';
+import { getGroupOffersByCity } from '../../helpers';
 
 type GroupCardListProps = {
   offers: Offer[];
 }
 
-const getGroupOfferByCity = (offers: Offer[]): GroupOfferByCity[] => {
-  const aFiltered = offers.filter(({ isFavorite }) => isFavorite);
-  const oGroup = aFiltered.reduce((acc: { [key: string]: GroupOfferByCity }, offer) => {
-    const { city: { name } } = offer;
-    if (!acc[name]) {
-      acc[name] = { city: offer.city, offers: [] };
-    }
-    acc[name].offers.push(offer);
-    return acc;
-  }, {});
-  return Object.values(oGroup);
+const getOffersByCity = (offers: Offer[]): GroupOfferByCity[] => {
+  const filteredOffers = offers.filter(({ isFavorite }) => isFavorite);
+  const groupOffersByCity = getGroupOffersByCity(filteredOffers);
+  return Object.values(groupOffersByCity);
 };
 
 export default function GroupCardList({ offers }: GroupCardListProps): JSX.Element {
   return (
     <ul className="favorites__list">
       {
-        getGroupOfferByCity(offers).map((groupOffer) => {
+        getOffersByCity(offers).map((groupOffer) => {
           const { city: { name } } = groupOffer;
           return (
             <li key={name} className="favorites__locations-items">
