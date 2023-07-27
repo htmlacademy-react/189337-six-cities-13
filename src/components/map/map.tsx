@@ -9,7 +9,7 @@ import classNames from 'classnames';
 type MapProps = {
   className: string;
   groupOffer: GroupOfferByCity;
-  selectedOffer?: Offer;
+  selectedOffer?: Offer | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -32,15 +32,15 @@ export default function Map({ className, groupOffer: { city, offers }, selectedO
     if (map) {
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
-        const { id, location: { latitude: lat, longitude: lng }} = offer;
+        const { id, location: { latitude, longitude }} = offer;
         const marker = new Marker({
-          lat,
-          lng
+          lat: latitude,
+          lng: longitude
         });
 
         marker
           .setIcon(
-            selectedOffer !== undefined && id === selectedOffer.id
+            !!selectedOffer && id === selectedOffer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )

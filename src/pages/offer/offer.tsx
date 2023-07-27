@@ -7,28 +7,37 @@ import Map from '../../components/map/map';
 import ReviewSection from '../../components/review/review';
 import CardList from '../../components/card-list/card-list';
 import { getGroupOffersByCity } from '../../helpers';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Offer(): JSX.Element {
   const { id } = useParams();
-  let current: OfferDetails | undefined;
-  let groupOffer: GroupOfferByCity | undefined;
-  const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>();
-  const handleChangeSelectedOffer = (offer: OfferType | undefined) => {
+  const [currentOffer, setCurrentOffer] = useState<OfferDetails | null | undefined>(id ? offersDetails[id] : null);
+  const [groupOffer, setGroupOffer] = useState<GroupOfferByCity | null>(null);
+  const [selectedOffer, setSelectedOffer] = useState<OfferType | null>();
+
+  const handleChangeSelectedOffer = (offer: OfferType | null) => {
     setSelectedOffer(offer);
   };
-  if (id) {
-    current = offersDetails[id];
-    if (current) {
-      const groupOffersByCity = getGroupOffersByCity(offers);
-      groupOffer = groupOffersByCity[current.city.name];
-      if(groupOffer) {
-        groupOffer.offers = groupOffer.offers.slice(0,3);
-      }
+
+  useEffect(() => {
+    if (id) {
+      setCurrentOffer(offersDetails[id] || null);
     }
-  }
+  }, [id]);
+
+  useEffect(() => {
+    if (currentOffer) {
+      const groupOffersByCity = getGroupOffersByCity(offers);
+      const currentGroupOffer = groupOffersByCity[currentOffer.city.name];
+      if (currentGroupOffer) {
+        currentGroupOffer.offers = currentGroupOffer.offers.slice(0, 3);
+      }
+      setGroupOffer(currentGroupOffer);
+    }
+  }, [currentOffer]);
+
   return (
-    id && current ?
+    currentOffer ?
       <div className="page">
         <Helmet>
           <title>6 cities: offer</title>
@@ -39,7 +48,7 @@ export default function Offer(): JSX.Element {
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
                 {
-                  current.images.map((image) => (
+                  currentOffer.images.map((image) => (
                     <div key={image} className="offer__image-wrapper">
                       <img
                         className="offer__image"
@@ -54,14 +63,14 @@ export default function Offer(): JSX.Element {
             <div className="offer__container container">
               <div className="offer__wrapper">
                 {
-                  current.isPremium &&
+                  currentOffer.isPremium &&
                   <div className="offer__mark">
                     <span>Premium</span>
                   </div>
                 }
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
-                    {current.title}
+                    {currentOffer.title}
                   </h1>
                   <button className="offer__bookmark-button button" type="button">
                     <svg className="offer__bookmark-icon" width={31} height={33}>
@@ -72,29 +81,29 @@ export default function Offer(): JSX.Element {
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: `${current.rating * 10}%` }} />
+                    <span style={{ width: `${currentOffer.rating * 10}%` }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="offer__rating-value rating__value">{current.rating}</span>
+                  <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
                 </div>
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">Apartment</li>
                   <li className="offer__feature offer__feature--bedrooms">
-                    {current.bedrooms} Bedrooms
+                    {currentOffer.bedrooms} Bedrooms
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max {current.maxAdults} adults
+                    Max {currentOffer.maxAdults} adults
                   </li>
                 </ul>
                 <div className="offer__price">
-                  <b className="offer__price-value">€{current.price}</b>
+                  <b className="offer__price-value">€{currentOffer.price}</b>
                   <span className="offer__price-text">&nbsp;night</span>
                 </div>
                 <div className="offer__inside">
                   <h2 className="offer__inside-title">What&apos;s inside</h2>
                   <ul className="offer__inside-list">
                     {
-                      current.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)
+                      currentOffer.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)
                     }
                   </ul>
                 </div>
@@ -104,22 +113,22 @@ export default function Offer(): JSX.Element {
                     <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                       <img
                         className="offer__avatar user__avatar"
-                        src={current.host.avatarUrl}
+                        src={currentOffer.host.avatarUrl}
                         width={74}
                         height={74}
                         alt="Host avatar"
                       />
                     </div>
-                    <span className="offer__user-name">{current.host.name}</span>
-                    {current.host.isPro && <span className="offer__user-status">Pro</span>}
+                    <span className="offer__user-name">{currentOffer.host.name}</span>
+                    {currentOffer.host.isPro && <span className="offer__user-status">Pro</span>}
                   </div>
                   <div className="offer__description">
                     <p className="offer__text">
-                      {current.description}
+                      {currentOffer.description}
                     </p>
                   </div>
                 </div>
-                <ReviewSection offerId={id} />
+                <ReviewSection offerId={currentOffer.id} />
               </div>
             </div>
             {groupOffer && <Map className={'offer__map'} groupOffer={groupOffer} selectedOffer={selectedOffer} />}

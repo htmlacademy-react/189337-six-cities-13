@@ -5,7 +5,7 @@ type CardListProps = {
   offers: Offer[];
   classNameWrapper?: string;
   classNameCardPrefix?: string;
-  handleChangeSelectedOffer?: (offer: Offer | undefined) => void;
+  handleChangeSelectedOffer?: (offer: Offer | null) => void;
 }
 
 export default function CardList({ offers, classNameWrapper, classNameCardPrefix, handleChangeSelectedOffer }: CardListProps): JSX.Element {

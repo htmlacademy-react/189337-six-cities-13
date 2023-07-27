@@ -14,11 +14,11 @@ type MainScreenProps = {
 }
 
 export default function Main({ offers }: MainScreenProps): JSX.Element {
-  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
+  const [selectedOffer, setSelectedOffer] = useState<Offer | null>();
   const groupOffersByCity = getGroupOffersByCity(offers);
   const groupOffer: GroupOfferByCity | undefined = groupOffersByCity[Settings.activeCity];
   const isNotEmpty = groupOffer && !!groupOffer.offers.length;
-  const handleChangeSelectedOffer = (offer: Offer | undefined) => {
+  const handleChangeSelectedOffer = (offer?: Offer | null) => {
     setSelectedOffer(offer);
   };
   return (
@@ -47,7 +47,8 @@ export default function Main({ offers }: MainScreenProps): JSX.Element {
               <div className="cities__right-section">
                 <Map className={'cities__map'} groupOffer={groupOffer} selectedOffer={selectedOffer} />
               </div>
-            </div> :
+            </div>
+            :
             <div className="cities__places-container cities__places-container--empty container">
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 type CardProps = {
   offer: Offer;
   className?: string;
-  handleChangeSelectedOffer?: (offer: Offer | undefined) => void;
+  handleChangeSelectedOffer?: (offer: Offer | null) => void;
 };
 
 export default function Card({ offer, className = 'cities', handleChangeSelectedOffer }: CardProps): JSX.Element {
@@ -21,14 +21,10 @@ export default function Card({ offer, className = 'cities', handleChangeSelected
       'near-places__card': isOnOffer
     }, 'place-card')}
     onMouseEnter={() => {
-      if (handleChangeSelectedOffer) {
-        handleChangeSelectedOffer(offer);
-      }
+      handleChangeSelectedOffer?.(offer);
     }}
     onMouseLeave={() => {
-      if (handleChangeSelectedOffer) {
-        handleChangeSelectedOffer(undefined);
-      }
+      handleChangeSelectedOffer?.(null);
     }}
     >
       {isPremium &&
