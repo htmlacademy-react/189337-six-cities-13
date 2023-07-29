@@ -1,13 +1,14 @@
 import { SortingTypes } from '../const';
 import { store } from '../store';
 import { Cities } from './city';
-import { GroupOfferByCity, Offer } from './offers';
+import { GroupOfferByCity, GroupOfferByCityObject, Offer } from './offers';
 
 export type SortingType = typeof SortingTypes[keyof typeof SortingTypes]
 
 export type State = {
   activeCity: Cities;
   groupOffers: GroupOfferByCity | null;
+  groupOffersByCity: GroupOfferByCityObject;
   selectedOffer: Offer | null;
   sortingMenu: {
     visible: boolean;
