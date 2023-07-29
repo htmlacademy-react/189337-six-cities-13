@@ -20,7 +20,7 @@ const initialState: State = {
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(changeActiveCity, (state, { payload }) => {
     state.activeCity = payload;
-    state.groupOffers = sortOffers(state.groupOffersByCity[state.activeCity] || null, state.sortingMenu.activeSort);
+    state.groupOffers = sortOffers(state.groupOffersByCity[state.activeCity], state.sortingMenu.activeSort);
   }).addCase(selectOffer, (state, { payload }) => {
     state.selectedOffer = payload;
   }).addCase(toggleSortingMenu, (state, { payload }) => {

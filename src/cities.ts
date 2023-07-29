@@ -1,8 +1,8 @@
 import { SortingTypes } from './const';
-import { GroupOfferByCity, Offer } from './types/offers';
+import { GroupOfferByCity, GroupOfferByCityObject, Offer } from './types/offers';
 import { SortingType } from './types/state';
 
-export const sortOffers = (groupOffers: GroupOfferByCity | null, sortingType: SortingType = SortingTypes.Popular): GroupOfferByCity | null => {
+export const sortOffers = (groupOffers: GroupOfferByCity | null | undefined, sortingType: SortingType = SortingTypes.Popular): GroupOfferByCity | null | undefined => {
   let sortFunc: ((a: Offer, b: Offer) => number) | undefined;
   if (groupOffers) {
     switch (sortingType) {
@@ -26,15 +26,13 @@ export const sortOffers = (groupOffers: GroupOfferByCity | null, sortingType: So
   return groupOffers;
 };
 
-export const getGroupOffersByCity = (offers: Offer[]) => {
-  const groupOffersByCity = offers.reduce((acc: { [key: string]: GroupOfferByCity }, offer) => {
+export const getGroupOffersByCity = (offers: Offer[]): GroupOfferByCityObject =>
+  offers.reduce((acc: GroupOfferByCityObject, offer) => {
     const { city: { name } } = offer;
     if (!acc[name]) {
       acc[name] = { city: offer.city, offers: [] };
     }
-    acc[name].offers.push(offer);
+    acc[name]?.offers.push(offer);
     return acc;
   }, {});
-  return groupOffersByCity;
-};
 

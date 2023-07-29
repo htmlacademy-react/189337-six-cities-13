@@ -7,7 +7,7 @@ export type SortingType = typeof SortingTypes[keyof typeof SortingTypes]
 
 export type State = {
   activeCity: Cities;
-  groupOffers: GroupOfferByCity | null;
+  groupOffers: GroupOfferByCity | null | undefined;
   groupOffersByCity: GroupOfferByCityObject;
   selectedOffer: Offer | null;
   sortingMenu: {

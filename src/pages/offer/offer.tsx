@@ -13,7 +13,7 @@ import { useAppSelector } from '../../hooks';
 export default function Offer(): JSX.Element {
   const { id } = useParams();
   const [currentOffer, setCurrentOffer] = useState<OfferDetails | null | undefined>(id ? offersDetails[id] : null);
-  const [groupOffer, setGroupOffer] = useState<GroupOfferByCity | null>(null);
+  const [groupOffer, setGroupOffer] = useState<GroupOfferByCity | null | undefined>(null);
   const selectedOffer = useAppSelector((state) => state.selectedOffer);
 
   useEffect(() => {
