@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Offer, GroupOfferByCity } from '../../types/offers';
 import CardList from '../card-list/card-list';
 import { AppRoute } from '../../const';
-import { getGroupOffersByCity } from '../../helpers';
+import { getGroupOffersByCity } from '../../cities';
 
 type GroupCardListProps = {
   offers: Offer[];

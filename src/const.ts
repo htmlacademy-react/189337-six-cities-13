@@ -28,8 +28,7 @@ export enum MapSettings {
 }
 
 export const Settings = {
-  isAuth: true,
-  activeCity: 'Amsterdam'
+  isAuth: true
 };
 
 export const CITIES = [

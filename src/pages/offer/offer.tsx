@@ -2,22 +2,19 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { Navigate, useParams } from 'react-router-dom';
 import { offers, offersDetails } from '../../mocks/offers';
-import { Offer as OfferType, GroupOfferByCity, OfferDetails } from '../../types/offers';
+import { GroupOfferByCity, OfferDetails } from '../../types/offers';
 import Map from '../../components/map/map';
 import ReviewSection from '../../components/review/review';
 import CardList from '../../components/card-list/card-list';
-import { getGroupOffersByCity } from '../../helpers';
+import { getGroupOffersByCity } from '../../cities';
 import { useState, useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
 
 export default function Offer(): JSX.Element {
   const { id } = useParams();
   const [currentOffer, setCurrentOffer] = useState<OfferDetails | null | undefined>(id ? offersDetails[id] : null);
   const [groupOffer, setGroupOffer] = useState<GroupOfferByCity | null>(null);
-  const [selectedOffer, setSelectedOffer] = useState<OfferType | null>();
-
-  const handleChangeSelectedOffer = (offer: OfferType | null) => {
-    setSelectedOffer(offer);
-  };
+  const selectedOffer = useAppSelector((state) => state.selectedOffer);
 
   useEffect(() => {
     if (id) {
@@ -143,7 +140,6 @@ export default function Offer(): JSX.Element {
                   classNameWrapper="near-places__list places__list"
                   classNameCardPrefix="near-places"
                   offers={groupOffer.offers}
-                  handleChangeSelectedOffer={handleChangeSelectedOffer}
                 />}
             </section>
           </div>
