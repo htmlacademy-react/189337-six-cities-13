@@ -12,13 +12,13 @@ type MapProps = {
   selectedOffer?: Offer | null;
 }
 
-const defaultCustomIcon = new Icon({
+const getDefaultCustomIcon = (): Icon => new Icon({
   iconUrl: ResourcePath.Pin,
   iconSize: [MapSettings.PinIconSizeX, MapSettings.PinIconSizeY],
   iconAnchor: [MapSettings.PinIconAnchorX, MapSettings.PinIconAnchorY]
 });
 
-const currentCustomIcon = new Icon({
+const getCurrentCustomIcon = (): Icon => new Icon({
   iconUrl: ResourcePath.PinActive,
   iconSize: [MapSettings.PinActiveIconSizeX, MapSettings.PinActiveIconSizeY],
   iconAnchor: [MapSettings.PinActiveIconAnchorX, MapSettings.PinActiveIconAnchorY]
@@ -41,8 +41,8 @@ export default function Map({ className, groupOffer: { city, offers }, selectedO
         marker
           .setIcon(
             !!selectedOffer && id === selectedOffer.id
-              ? currentCustomIcon
-              : defaultCustomIcon
+              ? getCurrentCustomIcon()
+              : getDefaultCustomIcon()
           )
           .addTo(markerLayer);
       });

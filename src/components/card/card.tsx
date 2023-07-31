@@ -2,15 +2,17 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offers';
 import { AppRoute } from '../../const';
 import classNames from 'classnames';
+import { useAppDispatch } from '../../hooks';
+import { selectOffer } from '../../store/action';
 
 type CardProps = {
   offer: Offer;
   className?: string;
-  handleChangeSelectedOffer?: (offer: Offer | null) => void;
 };
 
-export default function Card({ offer, className = 'cities', handleChangeSelectedOffer }: CardProps): JSX.Element {
+export default function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
+  const dispatch = useAppDispatch();
   const isOnMain = className === 'cities';
   const isOnFavorite = className === 'favorites';
   const isOnOffer = className === 'near-places';
@@ -21,10 +23,10 @@ export default function Card({ offer, className = 'cities', handleChangeSelected
       'near-places__card': isOnOffer
     }, 'place-card')}
     onMouseEnter={() => {
-      handleChangeSelectedOffer?.(offer);
+      dispatch(selectOffer(offer));
     }}
     onMouseLeave={() => {
-      handleChangeSelectedOffer?.(null);
+      dispatch(selectOffer(null));
     }}
     >
       {isPremium &&

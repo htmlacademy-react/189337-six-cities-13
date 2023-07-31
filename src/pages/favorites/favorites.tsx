@@ -1,14 +1,10 @@
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { Offer } from '../../types/offers';
 import GroupCardList from '../../components/group-card-list/group-card-list';
+import { offers } from '../../mocks/offers';
 
-type FavoritesProps = {
-  offers: Offer [];
-}
-
-export default function Favorites({ offers }: FavoritesProps): JSX.Element {
+export default function Favorites(): JSX.Element {
   return (
     <div className="page">
       <Helmet>

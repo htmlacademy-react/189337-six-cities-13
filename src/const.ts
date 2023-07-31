@@ -28,10 +28,20 @@ export enum MapSettings {
 }
 
 export const Settings = {
-  isAuth: true,
-  activeCity: 'Amsterdam'
+  isAuth: true
 };
 
-export const TAB_BAR_CITIES = [
+export const CITIES = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
+] as const;
+
+export enum SortingTypes {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first'
+}
+
+export const SORTING_MENUS = [
+  SortingTypes.Popular, SortingTypes.PriceLowToHigh, SortingTypes.PriceHighToLow, SortingTypes.TopRatedFirst
 ] as const;

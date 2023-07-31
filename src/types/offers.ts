@@ -1,5 +1,5 @@
 import { OfferTypes } from '../const';
-import { City } from './city';
+import { Cities, City } from './city';
 
 export type OfferType = typeof OfferTypes[keyof typeof OfferTypes];
 
@@ -42,8 +42,10 @@ export type OfferDetails = Omit<Offer, 'previewImage'> & Details;
 
 export type GroupOfferByCity = {
   city: City;
-  offers: Offer [];
+  offers: Offer[];
 }
+
+export type GroupOfferByCityObject = { [key in Cities]?: GroupOfferByCity }
 
 export type GroupOfferDetailsById = {
   [key: string]: OfferDetails;

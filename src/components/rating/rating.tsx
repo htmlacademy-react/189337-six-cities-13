@@ -33,7 +33,7 @@ export default function Rating({ rating, setRating }: RatingProps) {
                 defaultValue={value}
                 id={`${value}-stars`}
                 type="radio"
-                checked={rating === value}
+                checked={(rating / COEF_MULTIPLY) === value}
                 onChange={handleChangeRating}
               />
               <label

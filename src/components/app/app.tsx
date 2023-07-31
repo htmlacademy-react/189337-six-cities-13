@@ -7,22 +7,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute, Settings } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { Offer } from '../../types/offers';
 
-type AppProps = {
-  offers: Offer[];
-}
 
-export default function App({ offers }: AppProps): JSX.Element {
+export default function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Main} element={<MainPage offers={offers} />} />
+          <Route path={AppRoute.Main} element={<MainPage />} />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute isAuth={Settings.isAuth}>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage />
             </PrivateRoute>
           }
           />
