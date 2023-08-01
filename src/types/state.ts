@@ -7,6 +7,7 @@ export type SortingType = typeof SortingTypes[keyof typeof SortingTypes]
 
 export type State = {
   activeCity: Cities;
+  offers: Offer[];
   groupOffers: GroupOfferByCity | null | undefined;
   groupOffersByCity: GroupOfferByCityObject;
   selectedOffer: Offer | null;
@@ -14,6 +15,7 @@ export type State = {
     visible: boolean;
     activeSort: SortingType;
   };
+  isAuth: boolean;
 }
 
 export type Selector = ReturnType<typeof store.getState>;

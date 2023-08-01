@@ -27,10 +27,6 @@ export enum MapSettings {
   PinActiveIconAnchorY = 40,
 }
 
-export const Settings = {
-  isAuth: true
-};
-
 export const CITIES = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
 ] as const;
@@ -42,6 +38,21 @@ export enum SortingTypes {
   TopRatedFirst = 'Top rated first'
 }
 
+export const Settings = {
+  isAuth: true
+};
+
 export const SORTING_MENUS = [
   SortingTypes.Popular, SortingTypes.PriceLowToHigh, SortingTypes.PriceHighToLow, SortingTypes.TopRatedFirst
 ] as const;
+
+export enum ActionGroup {
+  Main = 'main',
+  Offers = 'offers',
+  User = 'user',
+  Data = 'data'
+}
+
+export enum APIRoute {
+  Offers = '/offers'
+}
