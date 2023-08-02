@@ -16,7 +16,10 @@ const initialState: State = {
     visible: false,
     activeSort: SortingTypes.Popular
   },
-  isAuth: false
+  auth: {
+    isAuth: false,
+    user: null
+  }
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -33,7 +36,8 @@ const reducer = createReducer(initialState, (builder) => {
   }).addCase(loadOffers, (state, { payload }) => {
     state.offers = payload;
   }).addCase(requireAuthorization, (state, { payload }) => {
-    state.isAuth = payload;
+    state.auth.isAuth = !!payload;
+    state.auth.user = payload;
   });
 });
 

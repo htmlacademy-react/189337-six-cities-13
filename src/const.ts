@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -38,10 +40,6 @@ export enum SortingTypes {
   TopRatedFirst = 'Top rated first'
 }
 
-export const Settings = {
-  isAuth: true
-};
-
 export const SORTING_MENUS = [
   SortingTypes.Popular, SortingTypes.PriceLowToHigh, SortingTypes.PriceHighToLow, SortingTypes.TopRatedFirst
 ] as const;
@@ -54,5 +52,13 @@ export enum ActionGroup {
 }
 
 export enum APIRoute {
-  Offers = '/offers'
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout'
 }
+
+export const StatusCodeError: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};

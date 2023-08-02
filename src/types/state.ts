@@ -2,6 +2,7 @@ import { SortingTypes } from '../const';
 import { store } from '../store';
 import { Cities } from './city';
 import { GroupOfferByCity, GroupOfferByCityObject, Offer } from './offers';
+import { AuthorizationInfo } from './user';
 
 export type SortingType = typeof SortingTypes[keyof typeof SortingTypes]
 
@@ -15,7 +16,7 @@ export type State = {
     visible: boolean;
     activeSort: SortingType;
   };
-  isAuth: boolean;
+  auth: AuthorizationInfo;
 }
 
 export type Selector = ReturnType<typeof store.getState>;

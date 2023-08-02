@@ -1,9 +1,14 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getToken } from './token';
-//import { toast } from 'react-toastify';
+import { ToastPosition, toast } from 'react-toastify';
+import { StatusCodeError } from '../const';
+import { DetailMessageType } from '../types/api';
 
 const BACKEND_URL = 'https://13.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
+const TOAST_POSITION: ToastPosition = 'top-center';
+
+const shouldDisplayError = (response: AxiosResponse): boolean => !!StatusCodeError[response.status];
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -23,19 +28,20 @@ export const createAPI = (): AxiosInstance => {
     },
   );
 
-  // api.interceptors.response.use(
-  //   (response) => response,
-  //   (error: AxiosError<DetailMessageType>) => {
-  //     if (error.response && shouldDisplayError(error.response)) {
-  //       const detailMessage = (error.response.data);
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<DetailMessageType>) => {
+      if (error.response && shouldDisplayError(error.response)) {
+        const detailMessage = (error.response.data);
 
-  //       processErrorHandle(detailMessage.message);
-  //       toast.warn(detailMessage.message);
-  //     }
+        toast.error(detailMessage.message, {
+          position: TOAST_POSITION
+        });
+      }
 
-  //     throw error;
-  //   }
-  // );
+      throw error;
+    }
+  );
 
   return api;
 };

@@ -3,6 +3,7 @@ import { Cities } from '../types/city';
 import { Offer } from '../types/offers';
 import { SortingType } from '../types/state';
 import { ActionGroup } from '../const';
+import { User } from '../types/user';
 
 export const changeActiveCity = createAction<Cities>(`${ActionGroup.Main}/changeActiveCity`);
 
@@ -14,6 +15,6 @@ export const changeActiveSort = createAction<SortingType>(`${ActionGroup.Main}/c
 
 export const loadOffers = createAction<Offer[]>(`${ActionGroup.Offers}/loadOffers`);
 
-export const requireAuthorization = createAction<boolean>(`${ActionGroup.User}/requireAuthorization`);
+export const requireAuthorization = createAction<User | null>(`${ActionGroup.User}/requireAuthorization`);
 
 export const setError = createAction<string | null>(`${ActionGroup.Data}/setError`);
