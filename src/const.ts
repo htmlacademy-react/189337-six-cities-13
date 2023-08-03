@@ -54,7 +54,8 @@ export enum ActionGroup {
 export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Favorites = '/favorite'
 }
 
 export const StatusCodeError: Record<number, boolean> = {

@@ -11,12 +11,14 @@ export type State = {
   offers: Offer[];
   groupOffers: GroupOfferByCity | null | undefined;
   groupOffersByCity: GroupOfferByCityObject;
+  favorites: Offer[];
   selectedOffer: Offer | null;
   sortingMenu: {
     visible: boolean;
     activeSort: SortingType;
   };
   auth: AuthorizationInfo;
+  isLoading: boolean;
 }
 
 export type Selector = ReturnType<typeof store.getState>;

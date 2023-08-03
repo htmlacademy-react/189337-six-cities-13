@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Cities } from '../types/city';
-import { Offer } from '../types/offers';
+import { Offer, OfferDetails } from '../types/offers';
 import { SortingType } from '../types/state';
 import { ActionGroup } from '../const';
 import { User } from '../types/user';
@@ -14,6 +14,10 @@ export const toggleSortingMenu = createAction<boolean>(`${ActionGroup.Main}/togg
 export const changeActiveSort = createAction<SortingType>(`${ActionGroup.Main}/changeActiveSort`);
 
 export const loadOffers = createAction<Offer[]>(`${ActionGroup.Offers}/loadOffers`);
+
+export const loadFavorites = createAction<Offer[]>(`${ActionGroup.Offers}/loadFavorites`);
+
+export const addToFavorite = createAction<OfferDetails>(`${ActionGroup.Offers}/addToFavorite`);
 
 export const requireAuthorization = createAction<User | null>(`${ActionGroup.User}/requireAuthorization`);
 

@@ -3,8 +3,9 @@ import { GroupOfferByCity, GroupOfferByCityObject, Offer } from './types/offers'
 import { SortingType } from './types/state';
 
 export const sortOffers = (groupOffers: GroupOfferByCity | null | undefined, sortingType: SortingType = SortingTypes.Popular): GroupOfferByCity | null | undefined => {
+  let out = groupOffers;
   let sortFunc: ((a: Offer, b: Offer) => number) | undefined;
-  if (groupOffers) {
+  if (out) {
     switch (sortingType) {
       case SortingTypes.PriceLowToHigh:
         sortFunc = ((a, b) => a.price - b.price);
@@ -20,10 +21,11 @@ export const sortOffers = (groupOffers: GroupOfferByCity | null | undefined, sor
         break;
     }
     if (sortFunc) {
-      groupOffers.offers.sort(sortFunc);
+      out = { ...out, offers: out.offers.slice() };
+      out.offers.sort(sortFunc);
     }
   }
-  return groupOffers;
+  return out;
 };
 
 export const getGroupOffersByCity = (offers: Offer[]): GroupOfferByCityObject =>
