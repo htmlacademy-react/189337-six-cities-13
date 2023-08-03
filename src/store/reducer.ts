@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeActiveCity, changeActiveSort, loadOffers, requireAuthorization, selectOffer, toggleSortingMenu } from './action';
+import { changeActiveCity, changeActiveSort, loadOffers, requireAuthorization, selectOffer, setLoading, toggleSortingMenu } from './action';
 import { State } from '../types/state';
 import { getGroupOffersByCity, sortOffers } from '../cities';
 import { offers } from '../mocks/offers';
@@ -19,7 +19,8 @@ const initialState: State = {
   auth: {
     isAuth: false,
     user: null
-  }
+  },
+  isLoading: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,6 +39,8 @@ const reducer = createReducer(initialState, (builder) => {
   }).addCase(requireAuthorization, (state, { payload }) => {
     state.auth.isAuth = !!payload;
     state.auth.user = payload;
+  }).addCase(setLoading, (state, { payload }) => {
+    state.isLoading = payload;
   });
 });
 

@@ -18,3 +18,5 @@ export const loadOffers = createAction<Offer[]>(`${ActionGroup.Offers}/loadOffer
 export const requireAuthorization = createAction<User | null>(`${ActionGroup.User}/requireAuthorization`);
 
 export const setError = createAction<string | null>(`${ActionGroup.Data}/setError`);
+
+export const setLoading = createAction<boolean>(`${ActionGroup.Data}/setLoading`);

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import Loader from '../loader/loader';
 
 
 export default function App(): JSX.Element {
@@ -25,6 +26,7 @@ export default function App(): JSX.Element {
           <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <Loader />
       </BrowserRouter>
     </HelmetProvider>
   );
