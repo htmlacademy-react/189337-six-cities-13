@@ -10,5 +10,6 @@ export type User = {
 
 export type AuthorizationInfo = {
   isAuth: boolean;
+  isLoading: boolean;
   user: User | null;
 }

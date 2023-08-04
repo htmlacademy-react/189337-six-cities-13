@@ -3,18 +3,15 @@ import { Offer, GroupOfferByCity } from '../../types/offers';
 import CardList from '../card-list/card-list';
 import { AppRoute } from '../../const';
 import { getGroupOffersByCity } from '../../cities';
-
-type GroupCardListProps = {
-  offers: Offer[];
-}
+import { useAppSelector } from '../../hooks';
 
 const getOffersByCity = (offers: Offer[]): GroupOfferByCity[] => {
-  const filteredOffers = offers.filter(({ isFavorite }) => isFavorite);
-  const groupOffersByCity = getGroupOffersByCity(filteredOffers);
+  const groupOffersByCity = getGroupOffersByCity(offers);
   return Object.values(groupOffersByCity);
 };
 
-export default function GroupCardList({ offers }: GroupCardListProps): JSX.Element {
+export default function GroupCardList(): JSX.Element {
+  const offers = useAppSelector((state) => state.favorites);
   return (
     <ul className="favorites__list">
       {

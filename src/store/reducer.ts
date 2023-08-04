@@ -19,6 +19,7 @@ const initialState: State = {
   },
   auth: {
     isAuth: false,
+    isLoading: true,
     user: null
   },
   isLoading: false
@@ -42,6 +43,7 @@ const reducer = createReducer(initialState, (builder) => {
   }).addCase(requireAuthorization, (state, { payload }) => {
     state.auth.isAuth = !!payload;
     state.auth.user = payload;
+    state.auth.isLoading = false;
   }).addCase(setLoading, (state, { payload }) => {
     state.isLoading = payload;
   }).addCase(loadFavorites, (state, { payload }) => {
