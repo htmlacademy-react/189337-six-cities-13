@@ -1,16 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { addToFavorite, changeActiveCity, changeActiveSort, loadFavorites, loadOffers, requireAuthorization, selectOffer, setLoading, toggleSortingMenu } from './action';
+import { addToFavorite, changeActiveCity, changeActiveSort, loadFavorites, loadOffer, loadOffers, loadOffersNearby, loadReviews, requireAuthorization, selectOffer, setLoading, toggleSortingMenu } from './action';
 import { State } from '../types/state';
 import { getGroupOffersByCity, sortOffers } from '../cities';
 import { offers } from '../mocks/offers';
-import { SortingTypes } from '../const';
+import { NEARBY_OFFERS_COUNT_ON_OFFER_PAGE, SortingTypes } from '../const';
 
 
 const initialState: State = {
   activeCity: 'Paris',
   offers: [],
+  offer: null,
+  offersNearby: [],
   groupOffers: null,
   groupOffersByCity: getGroupOffersByCity(offers),
+  reviews: [],
   favorites: [],
   selectedOffer: null,
   sortingMenu: {
@@ -40,6 +43,10 @@ const reducer = createReducer(initialState, (builder) => {
     state.offers = payload;
     state.groupOffersByCity = getGroupOffersByCity(payload);
     state.groupOffers = sortOffers(state.groupOffersByCity[state.activeCity], state.sortingMenu.activeSort);
+  }).addCase(loadOffer, (state, { payload }) => {
+    state.offer = payload;
+  }).addCase(loadOffersNearby, (state, { payload }) => {
+    state.offersNearby = payload.slice(0, NEARBY_OFFERS_COUNT_ON_OFFER_PAGE);
   }).addCase(requireAuthorization, (state, { payload }) => {
     state.auth.isAuth = !!payload;
     state.auth.user = payload;
@@ -48,12 +55,21 @@ const reducer = createReducer(initialState, (builder) => {
     state.isLoading = payload;
   }).addCase(loadFavorites, (state, { payload }) => {
     state.favorites = payload;
+  }).addCase(loadReviews, (state, { payload }) => {
+    state.reviews = payload;
   }).addCase(addToFavorite, (state, { payload }) => {
     const offer = state.offers.find(({ id }) => id === payload.id);
-    if(offer) {
+    const offersNearby = state.offersNearby.find(({ id }) => id === payload.id);
+    if (offer) {
       offer.isFavorite = payload.isFavorite;
       state.groupOffersByCity = getGroupOffersByCity(state.offers);
       state.groupOffers = sortOffers(state.groupOffersByCity[state.activeCity], state.sortingMenu.activeSort);
+      if (state.offer) {
+        state.offer.isFavorite = payload.isFavorite;
+      }
+    }
+    if (offersNearby) {
+      offersNearby.isFavorite = payload.isFavorite;
     }
   });
 });

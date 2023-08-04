@@ -4,7 +4,8 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer'
+  Offer = '/offer',
+  NotFound = '/*'
 }
 
 export enum OfferTypes {
@@ -48,14 +49,16 @@ export enum ActionGroup {
   Main = 'main',
   Offers = 'offers',
   User = 'user',
-  Data = 'data'
+  Data = 'data',
+  Reviews = 'reviews'
 }
 
 export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
-  Favorites = '/favorite'
+  Favorites = '/favorite',
+  Comments = '/comments'
 }
 
 export const StatusCodeError: Record<number, boolean> = {
@@ -63,3 +66,5 @@ export const StatusCodeError: Record<number, boolean> = {
   [StatusCodes.UNAUTHORIZED]: true,
   [StatusCodes.NOT_FOUND]: true
 };
+
+export const NEARBY_OFFERS_COUNT_ON_OFFER_PAGE = 3;

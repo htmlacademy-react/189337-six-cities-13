@@ -1,10 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Review } from '../../types/review';
 import Rating from '../rating/rating';
-
-type ReviewFormProps = {
-  addReview: (review: Review) => void;
-};
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { sendComment } from '../../store/api-action';
 
 const formState: Review = {
   id: crypto.randomUUID(),
@@ -18,9 +16,11 @@ const formState: Review = {
   rating: 0
 };
 
-export default function ReviewForm({ addReview }: ReviewFormProps) {
+export default function ReviewForm() {
   const [formData, setFormData] = useState(formState);
   const { comment, rating } = formData;
+  const offerId = useAppSelector((state) => state.offer?.id);
+  const dispatch = useAppDispatch();
 
   const setRating = (value: number) => {
     setFormData((prev) => ({ ...prev, rating: value }));
@@ -30,8 +30,9 @@ export default function ReviewForm({ addReview }: ReviewFormProps) {
   };
   const handleSubmitReview = ((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    addReview({...formData, date: new Date().toISOString()});
-    setFormData((prev) => ({...prev, id: crypto.randomUUID(), comment: '', rating: 0 }));
+    if(offerId) {
+      dispatch(sendComment({ id: offerId, comment, rating }));
+    }
   });
   return (
     <form

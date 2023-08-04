@@ -5,8 +5,6 @@ type RatingProps = {
   setRating: (rating: number) => void;
 }
 
-const COEF_MULTIPLY = 2;
-
 const RATING_DATA = [
   { value: 5, title: 'perfect' },
   { value: 4, title: 'good' },
@@ -18,7 +16,7 @@ const RATING_DATA = [
 export default function Rating({ rating, setRating }: RatingProps) {
 
   const handleChangeRating = ({ target: { defaultValue } }: ChangeEvent<HTMLInputElement>) => {
-    setRating(+defaultValue * COEF_MULTIPLY);
+    setRating(+defaultValue);
   };
 
   return (
@@ -33,7 +31,7 @@ export default function Rating({ rating, setRating }: RatingProps) {
                 defaultValue={value}
                 id={`${value}-stars`}
                 type="radio"
-                checked={(rating / COEF_MULTIPLY) === value}
+                checked={rating === value}
                 onChange={handleChangeRating}
               />
               <label
