@@ -16,8 +16,8 @@ export default function Header({ activeLogo = false, showNav = true }: HeaderPro
   const favorites = useAppSelector((state) => state.favorites);
   const dispatch = useAppDispatch();
 
-  const handleLogout = (evt: MouseEvent) => {
-    evt.preventDefault();
+  const handleLogout = (event: MouseEvent) => {
+    event.preventDefault();
     dispatch(logoutAction());
   };
 
@@ -39,7 +39,7 @@ export default function Header({ activeLogo = false, showNav = true }: HeaderPro
                           <div className="header__avatar-wrapper user__avatar-wrapper">
                           </div>
                           <span className="header__user-name user__name">{user?.email}</span>
-                          <span className="header__favorite-count">{ favorites.length }</span>
+                          <span className="header__favorite-count">{favorites.length}</span>
                         </Link>
                       </li>
                       <li className="header__nav-item">

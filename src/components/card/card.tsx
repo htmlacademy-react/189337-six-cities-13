@@ -20,7 +20,7 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
   const isOnFavorite = className === 'favorites';
   const isOnOffer = className === 'near-places';
 
-  const handleAddToFavorite = (): void => {
+  const handleAddToFavorite = () => {
     if (isAuth) {
       dispatch(setOfferIsFavorite(offer));
     } else {
@@ -35,10 +35,14 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
       'near-places__card': isOnOffer
     }, 'place-card')}
     onMouseEnter={() => {
-      dispatch(selectOffer(offer));
+      if (!isOnOffer) {
+        dispatch(selectOffer(offer));
+      }
     }}
     onMouseLeave={() => {
-      dispatch(selectOffer(null));
+      if (!isOnOffer) {
+        dispatch(selectOffer(null));
+      }
     }}
     >
       {isPremium &&

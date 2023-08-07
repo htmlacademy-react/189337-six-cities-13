@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { addToFavorite, changeActiveCity, changeActiveSort, loadFavorites, loadOffer, loadOffers, loadOffersNearby, loadReviews, requireAuthorization, selectOffer, setLoading, toggleSortingMenu } from './action';
 import { State } from '../types/state';
-import { getGroupOffersByCity, sortOffers } from '../cities';
+import { changeOfferIsFavorite, getGroupOffersByCity, getRandomThreeElements, sortOffers } from '../cities';
 import { offers } from '../mocks/offers';
 import { NEARBY_OFFERS_COUNT_ON_OFFER_PAGE, SortingTypes } from '../const';
 
@@ -46,7 +46,7 @@ const reducer = createReducer(initialState, (builder) => {
   }).addCase(loadOffer, (state, { payload }) => {
     state.offer = payload;
   }).addCase(loadOffersNearby, (state, { payload }) => {
-    state.offersNearby = payload.slice(0, NEARBY_OFFERS_COUNT_ON_OFFER_PAGE);
+    state.offersNearby = getRandomThreeElements(payload, NEARBY_OFFERS_COUNT_ON_OFFER_PAGE);
   }).addCase(requireAuthorization, (state, { payload }) => {
     state.auth.isAuth = !!payload;
     state.auth.user = payload;
@@ -57,19 +57,13 @@ const reducer = createReducer(initialState, (builder) => {
     state.favorites = payload;
   }).addCase(loadReviews, (state, { payload }) => {
     state.reviews = payload;
-  }).addCase(addToFavorite, (state, { payload }) => {
-    const offer = state.offers.find(({ id }) => id === payload.id);
-    const offersNearby = state.offersNearby.find(({ id }) => id === payload.id);
-    if (offer) {
-      offer.isFavorite = payload.isFavorite;
-      state.groupOffersByCity = getGroupOffersByCity(state.offers);
-      state.groupOffers = sortOffers(state.groupOffersByCity[state.activeCity], state.sortingMenu.activeSort);
-      if (state.offer) {
-        state.offer.isFavorite = payload.isFavorite;
-      }
-    }
-    if (offersNearby) {
-      offersNearby.isFavorite = payload.isFavorite;
+  }).addCase(addToFavorite, (state, { payload: { id, isFavorite } }) => {
+    state.offers = changeOfferIsFavorite(state.offers, id, isFavorite);
+    state.offersNearby = changeOfferIsFavorite(state.offersNearby, id, isFavorite);
+    state.groupOffersByCity = getGroupOffersByCity(state.offers);
+    state.groupOffers = sortOffers(state.groupOffersByCity[state.activeCity], state.sortingMenu.activeSort);
+    if(state.offer) {
+      state.offer.isFavorite = isFavorite;
     }
   });
 });

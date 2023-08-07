@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Map from '../../components/map/map';
 import ReviewSection from '../../components/review/review';
 import CardList from '../../components/card-list/card-list';
@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import Loader from '../../components/loader/loader';
 import { AppRoute } from '../../const';
 import classNames from 'classnames';
+import { convertOfferDetailsToOffer } from '../../cities';
 
 export default function Offer(): JSX.Element {
   const { id } = useParams();
@@ -17,8 +18,8 @@ export default function Offer(): JSX.Element {
   const navigate = useNavigate();
   const offer = useAppSelector((state) => state.offer);
   const offersNearby = useAppSelector((state) => state.offersNearby);
-  const selectedOffer = useAppSelector((state) => state.selectedOffer);
   const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const { pathname } = useLocation();
 
   const handleAddToFavorite = (): void => {
     if (isAuth && offer) {
@@ -27,6 +28,10 @@ export default function Offer(): JSX.Element {
       navigate(AppRoute.Login);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [pathname]);
 
   useEffect(() => {
     if (id) {
@@ -137,7 +142,11 @@ export default function Offer(): JSX.Element {
                 <ReviewSection />
               </div>
             </div>
-            <Map className={'offer__map'} groupOffer={{ city: offer.city, offers: offersNearby }} selectedOffer={selectedOffer} />
+            <Map
+              className={'offer__map'}
+              groupOffer={{ city: offer.city, offers: offersNearby.concat(convertOfferDetailsToOffer(offer)) }}
+              selectedOffer={convertOfferDetailsToOffer(offer)}
+            />
           </section>
           <div className="container">
             <section className="near-places places">

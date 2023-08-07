@@ -6,7 +6,7 @@ import { Offer, OfferDetails } from '../types/offers.js';
 import { loadFavorites, loadOffers, requireAuthorization, addToFavorite, loadOffer, loadOffersNearby, redirectToRoute, loadReviews } from './action.js';
 import { AuthData, ReviewData } from '../types/api.js';
 import { User } from '../types/user.js';
-import { dropToken, saveToken } from '../services/token.js';
+import { removeToken, saveToken } from '../services/token.js';
 import { Review } from '../types/review.js';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -130,7 +130,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   `${ActionGroup.User}/logout`,
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
-    dropToken();
+    removeToken();
     dispatch(requireAuthorization(null));
   },
 );

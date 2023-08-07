@@ -14,8 +14,8 @@ export default function LoginForm() {
 
   const validateForm = (): boolean => !!login && !!password;
 
-  const handleLogin = (evt: FormEvent<HTMLFormElement>): void => {
-    evt.preventDefault();
+  const handleLogin = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (validateForm()) {
       dispatch(loginAction(authData));
     } else {
@@ -26,8 +26,6 @@ export default function LoginForm() {
   return (
     <form
       className="login__form form"
-      action="#"
-      method="post"
       onSubmit={handleLogin}
     >
       <div className="login__input-wrapper form__input-wrapper">
@@ -39,7 +37,7 @@ export default function LoginForm() {
           placeholder="Email"
           required={false}
           value={login}
-          onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
+          onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
             setAuthData((prev) => ({ ...prev, login: value }));
           }}
         />
@@ -53,7 +51,7 @@ export default function LoginForm() {
           placeholder="Password"
           required={false}
           value={password}
-          onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>): void => {
+          onChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
             setAuthData((prev) => ({ ...prev, password: value }));
           }}
         />
