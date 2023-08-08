@@ -1,8 +1,11 @@
+import { StatusCodes } from 'http-status-codes';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer'
+  Offer = '/offer',
+  NotFound = '/*'
 }
 
 export enum OfferTypes {
@@ -27,10 +30,6 @@ export enum MapSettings {
   PinActiveIconAnchorY = 40,
 }
 
-export const Settings = {
-  isAuth: true
-};
-
 export const CITIES = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
 ] as const;
@@ -45,3 +44,27 @@ export enum SortingTypes {
 export const SORTING_MENUS = [
   SortingTypes.Popular, SortingTypes.PriceLowToHigh, SortingTypes.PriceHighToLow, SortingTypes.TopRatedFirst
 ] as const;
+
+export enum ActionGroup {
+  Main = 'main',
+  Offers = 'offers',
+  User = 'user',
+  Data = 'data',
+  Reviews = 'reviews'
+}
+
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Favorites = '/favorite',
+  Comments = '/comments'
+}
+
+export const StatusCodeError: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};
+
+export const NEARBY_OFFERS_COUNT_ON_OFFER_PAGE = 3;

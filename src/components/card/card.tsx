@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Offer } from '../../types/offers';
 import { AppRoute } from '../../const';
 import classNames from 'classnames';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectOffer } from '../../store/action';
+import { setOfferIsFavorite } from '../../store/api-action';
 
 type CardProps = {
   offer: Offer;
@@ -12,10 +13,21 @@ type CardProps = {
 
 export default function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isOnMain = className === 'cities';
   const isOnFavorite = className === 'favorites';
   const isOnOffer = className === 'near-places';
+
+  const handleAddToFavorite = () => {
+    if (isAuth) {
+      dispatch(setOfferIsFavorite(offer));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
+
   return (
     <article className={classNames({
       'cities__card': isOnMain,
@@ -23,10 +35,14 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
       'near-places__card': isOnOffer
     }, 'place-card')}
     onMouseEnter={() => {
-      dispatch(selectOffer(offer));
+      if (!isOnOffer) {
+        dispatch(selectOffer(offer));
+      }
     }}
     onMouseLeave={() => {
-      dispatch(selectOffer(null));
+      if (!isOnOffer) {
+        dispatch(selectOffer(null));
+      }
     }}
     >
       {isPremium &&
@@ -53,7 +69,9 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
             classNames({
               'place-card__bookmark-button--active': isFavorite
             }, 'place-card__bookmark-button', 'button')
-          } type="button"
+          }
+          type="button"
+          onClick={handleAddToFavorite}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>

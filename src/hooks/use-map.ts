@@ -13,29 +13,33 @@ function useMap(
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
+    if (mapRef.current !== null) {
       const { location: { latitude, longitude, zoom } } = city;
-      const instance = new Map(mapRef.current, {
-        center: {
-          lat: latitude,
-          lng: longitude
-        },
-        zoom
-      });
+      if (!isRenderedRef.current) {
+        const instance = new Map(mapRef.current, {
+          center: {
+            lat: latitude,
+            lng: longitude
+          },
+          zoom
+        });
 
-      const layer = new TileLayer(
-        TILE_LAYER_URL_TEMPLATE,
-        {
-          attribution: TILE_LAYER_OPTIONS_ATTRIBUTION
-        }
-      );
+        const layer = new TileLayer(
+          TILE_LAYER_URL_TEMPLATE,
+          {
+            attribution: TILE_LAYER_OPTIONS_ATTRIBUTION
+          }
+        );
 
-      instance.addLayer(layer);
+        instance.addLayer(layer);
 
-      setMap(instance);
-      isRenderedRef.current = true;
+        setMap(instance);
+        isRenderedRef.current = true;
+      } else {
+        map?.setView([latitude, longitude], zoom);
+      }
     }
-  }, [mapRef, city]);
+  }, [mapRef, city, map]);
 
   return map;
 }

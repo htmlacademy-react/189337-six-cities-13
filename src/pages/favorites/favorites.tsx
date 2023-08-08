@@ -2,7 +2,6 @@ import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import GroupCardList from '../../components/group-card-list/group-card-list';
-import { offers } from '../../mocks/offers';
 
 export default function Favorites(): JSX.Element {
   return (
@@ -15,7 +14,7 @@ export default function Favorites(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <GroupCardList offers={offers}/>
+            <GroupCardList />
           </section>
         </div>
       </main>

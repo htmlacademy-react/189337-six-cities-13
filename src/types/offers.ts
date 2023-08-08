@@ -1,5 +1,6 @@
 import { OfferTypes } from '../const';
 import { Cities, City } from './city';
+import { User } from './user';
 
 export type OfferType = typeof OfferTypes[keyof typeof OfferTypes];
 
@@ -22,11 +23,7 @@ export type Offer = {
   rating: number;
 };
 
-export type User = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-}
+export type Host = Omit<User, 'email' | 'token'>;
 
 export type Details = {
   description: string;

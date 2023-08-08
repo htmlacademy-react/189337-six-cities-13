@@ -17,8 +17,8 @@ export default function TabBarItem({ title, isActive = false }: TabBarItemProps)
       <Link
         className={classNames({ 'tabs__item--active': isActive }, 'locations__item-link', 'tabs__item')}
         to="#"
-        onClick={(evt) => {
-          evt.preventDefault();
+        onClick={(event) => {
+          event.preventDefault();
           dispatch(changeActiveCity(title));
         }}
       >
