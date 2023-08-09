@@ -1,9 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
-import { APIRoute, ActionGroup, AppRoute } from '../const.js';
+import { APIRoute, ActionGroup, AppRoute, ReviewsConfig } from '../const.js';
 import { Offer, OfferDetails } from '../types/offers.js';
-import { loadFavorites, loadOffers, requireAuthorization, addToFavorite, loadOffer, loadOffersNearby, redirectToRoute, loadReviews } from './action.js';
+import { loadFavorites, loadOffers, requireAuthorization, addToFavorite, loadOffer, loadOffersNearby, redirectToRoute, loadReviews, resetSendCommentStatus } from './action.js';
 import { AuthData, ReviewData } from '../types/api.js';
 import { User } from '../types/user.js';
 import { removeToken, saveToken } from '../services/token.js';
@@ -135,6 +135,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const clearSendCommentStatus = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ActionGroup.User}/clearSendCommentStatus`,
+  (_arg, { dispatch }) => {
+    setTimeout(() => dispatch(resetSendCommentStatus()), ReviewsConfig.ClearCommentStatusTime);
+  },
+);
+
 export const sendComment = createAsyncThunk<void, ReviewData, {
   dispatch: AppDispatch;
   state: State;
@@ -142,7 +153,12 @@ export const sendComment = createAsyncThunk<void, ReviewData, {
 }>(
   `${ActionGroup.User}/sendComment`,
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
-    await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
-    dispatch(fetchReviews(id));
+    try {
+      await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
+      dispatch(fetchReviews(id));
+    } catch (error) {
+      dispatch(clearSendCommentStatus());
+      throw error;
+    }
   },
 );

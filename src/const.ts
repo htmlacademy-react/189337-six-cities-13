@@ -67,4 +67,18 @@ export const StatusCodeError: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true
 };
 
+export enum ReviewsConfig {
+  CountOnFavoritePage = 10,
+  CommentMinLength = 50,
+  CommentMaxLength = 300,
+  ClearCommentStatusTime = 2000
+}
+
+export enum RequestStatus {
+  Idle = 0,
+  Pending = 1,
+  Success = 2,
+  Error = 3
+}
+
 export const NEARBY_OFFERS_COUNT_ON_OFFER_PAGE = 3;

@@ -1,4 +1,4 @@
-import { SortingTypes } from '../const';
+import { RequestStatus, SortingTypes } from '../const';
 import { store } from '../store';
 import { Cities } from './city';
 import { GroupOfferByCity, GroupOfferByCityObject, Offer, OfferDetails } from './offers';
@@ -22,6 +22,7 @@ export type State = {
     activeSort: SortingType;
   };
   auth: AuthorizationInfo;
+  sendCommentStatus: RequestStatus;
   isLoading: boolean;
 }
 

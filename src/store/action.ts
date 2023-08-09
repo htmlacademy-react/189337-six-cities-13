@@ -33,3 +33,5 @@ export const setError = createAction<string | null>(`${ActionGroup.Data}/setErro
 export const setLoading = createAction<boolean>(`${ActionGroup.Data}/setLoading`);
 
 export const redirectToRoute = createAction<AppRoute>(`${ActionGroup.Data}/redirectToRoute`);
+
+export const resetSendCommentStatus = createAction(`${ActionGroup.Reviews}/resetSendCommentStatus`);

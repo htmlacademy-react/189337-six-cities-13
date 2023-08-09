@@ -2,19 +2,35 @@ import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import GroupCardList from '../../components/group-card-list/group-card-list';
+import { useAppSelector } from '../../hooks';
+import classNames from 'classnames';
 
 export default function Favorites(): JSX.Element {
+  const offers = useAppSelector((state) => state.favorites);
+  const isNotEmpty = !!offers.length;
+
   return (
-    <div className="page">
+    <div className={classNames('page', { 'page--favorites-empty': !isNotEmpty })}>
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>
-      <Header/>
-      <main className="page__main page__main--favorites">
+      <Header />
+      <main className={classNames('page__main', 'page__main--favorites', { 'page__main--favorites-empty': !isNotEmpty })}>
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <GroupCardList />
+          <section className={classNames('favorites', { 'favorites--empty': !isNotEmpty })}>
+            {
+              isNotEmpty ?
+                <>
+                  <h1 className="favorites__title">Saved listing</h1>
+                  <GroupCardList />
+                </>
+                :
+                <div className="favorites__status-wrapper">
+                  <b className="favorites__status">Nothing yet saved.</b>
+                  <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
+                </div>
+            }
+
           </section>
         </div>
       </main>

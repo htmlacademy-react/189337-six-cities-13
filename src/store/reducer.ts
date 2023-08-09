@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { addToFavorite, changeActiveCity, changeActiveSort, loadFavorites, loadOffer, loadOffers, loadOffersNearby, loadReviews, requireAuthorization, selectOffer, setLoading, toggleSortingMenu } from './action';
+import { addToFavorite, changeActiveCity, changeActiveSort, resetSendCommentStatus, loadFavorites, loadOffer, loadOffers, loadOffersNearby, loadReviews, requireAuthorization, selectOffer, setLoading, toggleSortingMenu } from './action';
 import { State } from '../types/state';
-import { changeOfferIsFavorite, getGroupOffersByCity, getRandomThreeElements, sortOffers } from '../cities';
+import { changeOfferIsFavorite, getGroupOffersByCity, getRandomThreeElements, sortOffers, sortReviews } from '../cities';
 import { offers } from '../mocks/offers';
-import { NEARBY_OFFERS_COUNT_ON_OFFER_PAGE, SortingTypes } from '../const';
+import { NEARBY_OFFERS_COUNT_ON_OFFER_PAGE, RequestStatus, ReviewsConfig, SortingTypes } from '../const';
+import { sendComment } from './api-action';
 
 
 const initialState: State = {
@@ -25,7 +26,8 @@ const initialState: State = {
     isLoading: true,
     user: null
   },
-  isLoading: false
+  isLoading: false,
+  sendCommentStatus: RequestStatus.Idle
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -56,7 +58,7 @@ const reducer = createReducer(initialState, (builder) => {
   }).addCase(loadFavorites, (state, { payload }) => {
     state.favorites = payload;
   }).addCase(loadReviews, (state, { payload }) => {
-    state.reviews = payload;
+    state.reviews = sortReviews(payload).slice(0, ReviewsConfig.CountOnFavoritePage);
   }).addCase(addToFavorite, (state, { payload: { id, isFavorite } }) => {
     state.offers = changeOfferIsFavorite(state.offers, id, isFavorite);
     state.offersNearby = changeOfferIsFavorite(state.offersNearby, id, isFavorite);
@@ -65,6 +67,12 @@ const reducer = createReducer(initialState, (builder) => {
     if(state.offer) {
       state.offer.isFavorite = isFavorite;
     }
+  }).addCase(sendComment.rejected, (state) => {
+    state.sendCommentStatus = RequestStatus.Error;
+  }).addCase(sendComment.fulfilled, (state) => {
+    state.sendCommentStatus = RequestStatus.Success;
+  }).addCase(resetSendCommentStatus, (state) => {
+    state.sendCommentStatus = RequestStatus.Idle;
   });
 });
 
