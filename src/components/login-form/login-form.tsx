@@ -8,7 +8,7 @@ import { GLOBAL_TOAST_ID } from '../../const';
 const FORM_ERROR_TEXT = 'Your password was entered incorrectly, it must contain 1 uppercase letter and 1 digit.Thank you for using our service.';
 const TOAST_POSITION: ToastPosition = 'top-center';
 
-export default function LoginForm() {
+function LoginForm() {
   const [authData, setAuthData] = useState<AuthData>({ login: '', password: '' });
   const [isEnabled, setEnabled] = useState<boolean>(false);
   const { login, password } = authData;
@@ -74,3 +74,5 @@ export default function LoginForm() {
     </form>
   );
 }
+
+export default LoginForm;

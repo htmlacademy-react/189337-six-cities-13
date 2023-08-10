@@ -6,7 +6,7 @@ type TabBarProps = {
   items: readonly Cities[];
 }
 
-export default function TabBar({ items }: TabBarProps): JSX.Element {
+function TabBar({ items }: TabBarProps): JSX.Element {
   const activeCity = useAppSelector((state) => state.activeCity);
 
   return (
@@ -19,3 +19,5 @@ export default function TabBar({ items }: TabBarProps): JSX.Element {
     </div>
   );
 }
+
+export default TabBar;

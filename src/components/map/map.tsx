@@ -24,7 +24,7 @@ const getCurrentCustomIcon = (): Icon => new Icon({
   iconAnchor: [MapSettings.PinActiveIconAnchorX, MapSettings.PinActiveIconAnchorY]
 });
 
-export default function Map({ className, groupOffer: { city, offers }, selectedOffer }: MapProps): JSX.Element {
+function Map({ className, groupOffer: { city, offers }, selectedOffer }: MapProps): JSX.Element {
   const refMap = useRef<HTMLElement | null>(null);
   const map = useMap(refMap, city);
 
@@ -57,3 +57,5 @@ export default function Map({ className, groupOffer: { city, offers }, selectedO
     <section ref={refMap} className={classNames(className, 'map')}></section>
   );
 }
+
+export default Map;

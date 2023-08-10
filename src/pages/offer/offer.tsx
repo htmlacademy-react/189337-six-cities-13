@@ -12,7 +12,7 @@ import { AppRoute } from '../../const';
 import classNames from 'classnames';
 import { convertOfferDetailsToOffer } from '../../cities';
 
-export default function Offer(): JSX.Element {
+function Offer(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -166,3 +166,5 @@ export default function Offer(): JSX.Element {
       <Loader />
   );
 }
+
+export default Offer;

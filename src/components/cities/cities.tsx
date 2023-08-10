@@ -3,7 +3,7 @@ import SortingMenu from '../../components/sorting-menu/sorting-menu';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 
-export default function Cities(): JSX.Element {
+function Cities(): JSX.Element {
   const activeCity = useAppSelector((state) => state.activeCity);
   const groupOffers = useAppSelector((state) => state.groupOffers);
   const selectedOffer = useAppSelector((state) => state.selectedOffer);
@@ -41,3 +41,5 @@ export default function Cities(): JSX.Element {
     </div>
   );
 }
+
+export default Cities;

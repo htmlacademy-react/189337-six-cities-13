@@ -5,7 +5,7 @@ import GroupCardList from '../../components/group-card-list/group-card-list';
 import { useAppSelector } from '../../hooks';
 import classNames from 'classnames';
 
-export default function Favorites(): JSX.Element {
+function Favorites(): JSX.Element {
   const offers = useAppSelector((state) => state.favorites);
   const isNotEmpty = !!offers.length;
 
@@ -40,3 +40,5 @@ export default function Favorites(): JSX.Element {
     </div>
   );
 }
+
+export default Favorites;

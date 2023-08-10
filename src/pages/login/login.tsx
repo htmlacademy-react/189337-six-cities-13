@@ -9,7 +9,7 @@ import { getRandomElement } from '../../cities';
 import { Cities } from '../../types/city';
 import { changeActiveCity } from '../../store/action';
 
-export default function Login(): JSX.Element {
+function Login(): JSX.Element {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const randomCity = getRandomElement<Cities>(CITIES);
   const dispatch = useAppDispatch();
@@ -52,3 +52,5 @@ export default function Login(): JSX.Element {
       <Navigate to={AppRoute.Main} />
   );
 }
+
+export default Login;

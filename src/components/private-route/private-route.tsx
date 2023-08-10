@@ -7,7 +7,7 @@ type PrivateRouteProps = {
   children: JSX.Element;
 }
 
-export default function PrivateRoute({
+function PrivateRoute({
   children
 }: PrivateRouteProps): JSX.Element {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
@@ -19,3 +19,5 @@ export default function PrivateRoute({
     isAuth ? children : <Navigate to={AppRoute.Login} />
   );
 }
+
+export default PrivateRoute;

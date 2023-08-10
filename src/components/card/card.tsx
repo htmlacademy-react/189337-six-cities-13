@@ -11,7 +11,7 @@ type CardProps = {
   className?: string;
 };
 
-export default function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
+function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const navigate = useNavigate();
@@ -93,3 +93,5 @@ export default function Card({ offer, className = 'cities' }: CardProps): JSX.El
     </article >
   );
 }
+
+export default Card;

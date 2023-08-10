@@ -10,7 +10,7 @@ const getOffersByCity = (offers: Offer[]): GroupOfferByCity[] => {
   return Object.values(groupOffersByCity);
 };
 
-export default function GroupCardList(): JSX.Element {
+function GroupCardList(): JSX.Element {
   const offers = useAppSelector((state) => state.favorites);
   return (
     <ul className="favorites__list">
@@ -34,3 +34,5 @@ export default function GroupCardList(): JSX.Element {
     </ul>
   );
 }
+
+export default GroupCardList;

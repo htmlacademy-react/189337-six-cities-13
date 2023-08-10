@@ -9,7 +9,7 @@ type TabBarItemProps = {
   isActive?: boolean;
 }
 
-export default function TabBarItem({ title, isActive = false }: TabBarItemProps): JSX.Element {
+function TabBarItem({ title, isActive = false }: TabBarItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -27,3 +27,5 @@ export default function TabBarItem({ title, isActive = false }: TabBarItemProps)
     </li >
   );
 }
+
+export default TabBarItem;

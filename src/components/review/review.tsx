@@ -2,7 +2,7 @@ import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
 import { useAppSelector } from '../../hooks';
 
-export default function Review() {
+function Review() {
   const reviews = useAppSelector((state) => state.reviews);
   const isAuth = useAppSelector((state) => state.auth.isAuth);
 
@@ -16,3 +16,5 @@ export default function Review() {
     </section>
   );
 }
+
+export default Review;

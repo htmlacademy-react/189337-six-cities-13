@@ -6,7 +6,7 @@ type ReviewProps = {
 
 const MULTIPLY_COEF_RATING = 20;
 
-export default function ReviewItem({ review }: ReviewProps) {
+function ReviewItem({ review }: ReviewProps) {
   const { date, comment, rating, user: { name, avatarUrl }} = review;
   return (
     <li className="reviews__item">
@@ -39,3 +39,5 @@ export default function ReviewItem({ review }: ReviewProps) {
     </li>
   );
 }
+
+export default ReviewItem;

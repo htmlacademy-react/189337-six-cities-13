@@ -10,7 +10,7 @@ type HeaderProps = {
   showNav?: boolean;
 }
 
-export default function Header({ activeLogo = false, showNav = true }: HeaderProps): JSX.Element {
+function Header({ activeLogo = false, showNav = true }: HeaderProps): JSX.Element {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const user = useAppSelector((state) => state.auth.user);
   const favorites = useAppSelector((state) => state.favorites);
@@ -68,3 +68,5 @@ export default function Header({ activeLogo = false, showNav = true }: HeaderPro
     </header>
   );
 }
+
+export default Header;

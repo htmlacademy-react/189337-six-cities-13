@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks';
 import styles from './loader.module.css';
 
-export default function Loader() {
+function Loader() {
   const isLoading = useAppSelector((state) => state.isLoading);
   return (
     isLoading &&
@@ -10,3 +10,6 @@ export default function Loader() {
     </div>
   );
 }
+
+export default Loader;
+

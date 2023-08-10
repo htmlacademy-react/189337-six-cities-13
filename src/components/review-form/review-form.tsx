@@ -17,7 +17,7 @@ const formState: Review = {
   rating: 0
 };
 
-export default function ReviewForm() {
+function ReviewForm() {
   const [formData, setFormData] = useState(formState);
   const { comment, rating } = formData;
   const [isEnabled, setEnabled] = useState(false);
@@ -99,3 +99,5 @@ export default function ReviewForm() {
     </form >
   );
 }
+
+export default ReviewForm;

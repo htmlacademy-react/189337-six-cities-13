@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeActiveSort, toggleSortingMenu } from '../../store/action';
 import { useCallback, useEffect, useRef } from 'react';
 
-export default function SortingMenu() {
+function SortingMenu() {
   const activeSort = useAppSelector((state) => state.sortingMenu.activeSort);
   const isVisible = useAppSelector((state) => state.sortingMenu.visible);
   const dispatch = useAppDispatch();
@@ -63,3 +63,5 @@ export default function SortingMenu() {
     </form>
   );
 }
+
+export default SortingMenu;

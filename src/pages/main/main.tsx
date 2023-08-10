@@ -5,7 +5,7 @@ import { CITIES } from '../../const';
 import Cities from '../../components/cities/cities';
 
 
-export default function Main(): JSX.Element {
+function Main(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
@@ -21,3 +21,5 @@ export default function Main(): JSX.Element {
     </div>
   );
 }
+
+export default Main;
