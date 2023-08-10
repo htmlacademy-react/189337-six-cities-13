@@ -64,7 +64,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.offersNearby = changeOfferIsFavorite(state.offersNearby, id, isFavorite);
     state.groupOffersByCity = getGroupOffersByCity(state.offers);
     state.groupOffers = sortOffers(state.groupOffersByCity[state.activeCity], state.sortingMenu.activeSort);
-    if(state.offer) {
+    if (state.offer) {
       state.offer.isFavorite = isFavorite;
     }
   }).addCase(sendComment.rejected, (state) => {

@@ -71,7 +71,7 @@ export enum ReviewsConfig {
   CountOnFavoritePage = 10,
   CommentMinLength = 50,
   CommentMaxLength = 300,
-  ClearCommentStatusTime = 2000
+  ClearCommentStatusTime = 3000
 }
 
 export enum RequestStatus {
@@ -82,3 +82,5 @@ export enum RequestStatus {
 }
 
 export const NEARBY_OFFERS_COUNT_ON_OFFER_PAGE = 3;
+
+export const GLOBAL_TOAST_ID = 'GLOBAL_TOAST_ID';

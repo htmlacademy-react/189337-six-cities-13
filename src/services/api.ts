@@ -1,7 +1,7 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getToken } from './token';
 import { ToastPosition, toast } from 'react-toastify';
-import { StatusCodeError } from '../const';
+import { APIRoute, GLOBAL_TOAST_ID, StatusCodeError } from '../const';
 import { DetailMessageType } from '../types/api';
 import { store } from '../store';
 import { setLoading } from '../store/action';
@@ -10,7 +10,25 @@ const BACKEND_URL = 'https://13.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 const TOAST_POSITION: ToastPosition = 'top-center';
 
-const shouldDisplayError = (response: AxiosResponse): boolean => !!StatusCodeError[response.status];
+const getErrorText = ({ message, response, request: { url, method } }: AxiosError<DetailMessageType>): string => {
+  let out = '';
+  if (response && StatusCodeError[response.status]) {
+    const { data } = response;
+    switch (url) {
+      case APIRoute.Login:
+        if (method === 'post') {
+          out = data.message;
+        }
+        break;
+      default:
+        out = data.message;
+        break;
+    }
+  } else {
+    out = message;
+  }
+  return out;
+};
 
 export const createAPI = (): AxiosInstance => {
 
@@ -41,11 +59,11 @@ export const createAPI = (): AxiosInstance => {
       return response;
     },
     (error: AxiosError<DetailMessageType>) => {
-      if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = (error.response.data);
-
-        toast.error(detailMessage.message, {
-          position: TOAST_POSITION
+      const errorText = getErrorText(error);
+      if (errorText !== '') {
+        toast.error(errorText, {
+          position: TOAST_POSITION,
+          toastId: GLOBAL_TOAST_ID
         });
       }
       store.dispatch(setLoading(false));
