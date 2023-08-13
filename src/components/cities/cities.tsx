@@ -2,13 +2,13 @@ import CardList from '../../components/card-list/card-list';
 import SortingMenu from '../../components/sorting-menu/sorting-menu';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
-import { getActiveCity, getCityInfo, getOfferSelected, getOffersSorted } from '../../store/cities-process/selectors';
+import { getActiveCity, getCityInfo, getOffersSorted } from '../../store/cities-process/selectors';
+import { memo } from 'react';
 
 function Cities(): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffersSorted);
   const cityInfo = useAppSelector(getCityInfo);
-  const offerSelected = useAppSelector(getOfferSelected);
 
   const isNotEmpty = !!offers.length && cityInfo;
 
@@ -27,7 +27,7 @@ function Cities(): JSX.Element {
             />
           </section>
           <div className="cities__right-section">
-            <Map className={'cities__map'} city={cityInfo} offers={offers} offerSelected={offerSelected} />
+            <Map className={'cities__map'} city={cityInfo} offers={offers} />
           </div>
         </div>
         :
@@ -44,4 +44,5 @@ function Cities(): JSX.Element {
   );
 }
 
-export default Cities;
+const CitiesMemo = memo(Cities);
+export default CitiesMemo;

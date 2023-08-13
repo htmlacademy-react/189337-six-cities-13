@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ActionGroup, CITIES, RequestStatus, SortingTypes } from '../../const';
-import { addOfferToFavorites, fetchOffers } from '../api-action';
+import { addOfferToFavorites, fetchOffer, fetchOffers } from '../api-action';
 import { Cities, CitiesProcess } from '../../types/city';
 import { Offer } from '../../types/offers';
 import { changeOfferIsFavorite, getOffersByActiveCity } from '../../cities';
@@ -60,6 +60,9 @@ export const citiesProcess = createSlice({
       })
       .addCase(addOfferToFavorites.rejected, (state) => {
         state.fetch.addOfferToFavorites = RequestStatus.Error;
+      })
+      .addCase(fetchOffer.fulfilled, (state, { payload }) => {
+        state.offerSelected = payload;
       });
   }
 });

@@ -9,10 +9,6 @@ export type Review = {
   rating: number;
 }
 
-export type GroupReviewById = {
-  [key: string]: Review [];
-}
-
 export type ReviewsFetchStatus = {
   reviews: RequestStatus;
   sendComment: RequestStatus;

@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment } from 'react';
+import { ChangeEvent, Fragment, memo } from 'react';
 
 type RatingProps = {
   rating: number;
@@ -50,4 +50,5 @@ function Rating({ rating, setRating }: RatingProps) {
   );
 }
 
-export default Rating;
+const RatingMemo = memo(Rating);
+export default RatingMemo;

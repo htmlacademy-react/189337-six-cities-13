@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { SORTING_MENUS } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { getActiveSort, getSortingMenuVisible } from '../../store/cities-process/selectors';
 import { changeActiveSort, toggleSortingMenu } from '../../store/cities-process/cities-process';
 
@@ -65,4 +65,5 @@ function SortingMenu() {
   );
 }
 
-export default SortingMenu;
+const SortingMenuMemo = memo(SortingMenu);
+export default SortingMenuMemo;

@@ -123,7 +123,6 @@ function Offer(): JSX.Element {
               className={'offer__map'}
               city={offer.city}
               offers={offersNearby.concat(convertOfferDetailsToOffer(offer))}
-              offerSelected={offer}
             />
           </section>
           <div className="container">

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
 import ButtonBookmark from '../button-bookmark/button-bookmark';
 import { setOfferSelected } from '../../store/cities-process/cities-process';
+import { memo } from 'react';
 
 type CardProps = {
   offer: Offer;
@@ -76,4 +77,5 @@ function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
   );
 }
 
-export default Card;
+const CardMemo = memo(Card);
+export default CardMemo;

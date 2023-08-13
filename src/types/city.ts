@@ -1,5 +1,5 @@
 import { CITIES, RequestStatus } from '../const';
-import { Location, Offer } from './offers';
+import { Location, Offer, OfferDetails } from './offers';
 import { SortingType } from './state';
 
 export type Cities = typeof CITIES[number]
@@ -19,7 +19,7 @@ export type CitiesProcess = {
   cityInfo: City | null;
   offers: Offer [];
   offersAll: Offer [];
-  offerSelected: Offer | null;
+  offerSelected: Offer | OfferDetails | null;
   sortingMenu: {
     visible: boolean;
     activeSort: SortingType;
