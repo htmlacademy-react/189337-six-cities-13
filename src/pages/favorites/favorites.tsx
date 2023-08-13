@@ -4,9 +4,10 @@ import Header from '../../components/header/header';
 import GroupCardList from '../../components/group-card-list/group-card-list';
 import { useAppSelector } from '../../hooks';
 import classNames from 'classnames';
+import { getFavorites } from '../../store/favorites-process/selectors';
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector((state) => state.favorites);
+  const offers = useAppSelector(getFavorites);
   const isNotEmpty = !!offers.length;
 
   return (

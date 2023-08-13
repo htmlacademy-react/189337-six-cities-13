@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeActiveCity } from '../../store/action';
 import { Cities } from '../../types/city';
+import { changeActiveCity } from '../../store/cities-process/cities-process';
 
 type TabBarItemProps = {
   title: Cities;

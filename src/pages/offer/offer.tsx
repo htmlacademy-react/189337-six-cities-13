@@ -1,33 +1,23 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Map from '../../components/map/map';
 import ReviewSection from '../../components/review/review';
 import CardList from '../../components/card-list/card-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffer, setOfferIsFavorite } from '../../store/api-action';
+import { fetchOffer } from '../../store/api-action';
 import { useEffect } from 'react';
 import Loader from '../../components/loader/loader';
-import { AppRoute } from '../../const';
-import classNames from 'classnames';
 import { convertOfferDetailsToOffer } from '../../cities';
+import ButtonBookmark from '../../components/button-bookmark/button-bookmark';
+import { getOffer, getOffersNearby } from '../../store/offer-process/selectors';
 
 function Offer(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const offer = useAppSelector((state) => state.offer);
-  const offersNearby = useAppSelector((state) => state.offersNearby);
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const offer = useAppSelector(getOffer);
+  const offersNearby = useAppSelector(getOffersNearby);
   const { pathname } = useLocation();
-
-  const handleAddToFavorite = (): void => {
-    if (isAuth && offer) {
-      dispatch(setOfferIsFavorite(offer));
-    } else {
-      navigate(AppRoute.Login);
-    }
-  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -75,20 +65,7 @@ function Offer(): JSX.Element {
                   <h1 className="offer__name">
                     {offer.title}
                   </h1>
-                  <button
-                    className={
-                      classNames({
-                        'offer__bookmark-button--active': offer.isFavorite
-                      }, 'offer__bookmark-button', 'button')
-                    }
-                    type="button"
-                    onClick={handleAddToFavorite}
-                  >
-                    <svg className="offer__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <ButtonBookmark className={'offer'} isActive={offer.isFavorite} offer={offer} />
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
@@ -144,8 +121,9 @@ function Offer(): JSX.Element {
             </div>
             <Map
               className={'offer__map'}
-              groupOffer={{ city: offer.city, offers: offersNearby.concat(convertOfferDetailsToOffer(offer)) }}
-              selectedOffer={convertOfferDetailsToOffer(offer)}
+              city={offer.city}
+              offers={offersNearby.concat(convertOfferDetailsToOffer(offer))}
+              offerSelected={offer}
             />
           </section>
           <div className="container">

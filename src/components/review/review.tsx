@@ -1,10 +1,12 @@
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
 import { useAppSelector } from '../../hooks';
+import { getReviews } from '../../store/reviews-process/selectors';
+import { getIsAuth } from '../../store/user-process/selectors';
 
 function Review() {
-  const reviews = useAppSelector((state) => state.reviews);
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const reviews = useAppSelector(getReviews);
+  const isAuth = useAppSelector(getIsAuth);
 
   return (
     <section className="offer__reviews reviews">

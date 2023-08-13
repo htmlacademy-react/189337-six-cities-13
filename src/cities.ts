@@ -1,10 +1,11 @@
 import { SortingTypes } from './const';
-import { GroupOfferByCity, GroupOfferByCityObject, Offer, OfferDetails } from './types/offers';
+import { Cities } from './types/city';
+import { Offer, OfferDetails } from './types/offers';
 import { Review } from './types/review';
 import { SortingType } from './types/state';
 
-export const sortOffers = (groupOffers: GroupOfferByCity | null | undefined, sortingType: SortingType = SortingTypes.Popular): GroupOfferByCity | null | undefined => {
-  let out = groupOffers;
+export const sortOffers = (offers: Offer[], sortingType: SortingType): Offer[] => {
+  const out = offers.slice();
   let sortFunc: ((a: Offer, b: Offer) => number) | undefined;
   if (out) {
     switch (sortingType) {
@@ -22,24 +23,13 @@ export const sortOffers = (groupOffers: GroupOfferByCity | null | undefined, sor
         break;
     }
     if (sortFunc) {
-      out = { ...out, offers: out.offers.slice() };
-      out.offers.sort(sortFunc);
+      out.sort(sortFunc);
     }
   }
   return out;
 };
 
 export const sortReviews = (reviews: Review[]): Review[] => reviews.sort((a, b) => +new Date(b.date) - +new Date(a.date));
-
-export const getGroupOffersByCity = (offers: Offer[]): GroupOfferByCityObject =>
-  offers.reduce((acc: GroupOfferByCityObject, offer) => {
-    const { city: { name } } = offer;
-    if (!acc[name]) {
-      acc[name] = { city: offer.city, offers: [] };
-    }
-    acc[name]?.offers.push(offer);
-    return acc;
-  }, {});
 
 export const changeOfferIsFavorite = (offers: Offer[], offerId: Offer['id'], isFavorite: boolean): Offer[] =>
   offers.map((offer) => offer.id === offerId ? { ...offer, isFavorite } : offer);
@@ -54,5 +44,7 @@ export const getRandomThreeElements = <T>(arr: T[], length: number): T[] => {
   }
   return shuffledArray.slice(0, length);
 };
+
+export const getOffersByActiveCity = (offers: Offer[], activeCity: Cities) => offers.filter(({ city: { name } }) => name === activeCity);
 
 export const getRandomElement = <T>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)];

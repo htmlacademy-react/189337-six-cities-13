@@ -1,4 +1,4 @@
-import { OfferTypes } from '../const';
+import { OfferTypes, RequestStatus } from '../const';
 import { Cities, City } from './city';
 import { User } from './user';
 
@@ -37,13 +37,29 @@ export type Details = {
 
 export type OfferDetails = Omit<Offer, 'previewImage'> & Details;
 
-export type GroupOfferByCity = {
+export type GroupOffersByCity = {
   city: City;
   offers: Offer[];
 }
 
-export type GroupOfferByCityObject = { [key in Cities]?: GroupOfferByCity }
+export type GroupOfferByCityObject = { [key in Cities]?: GroupOffersByCity }
 
-export type GroupOfferDetailsById = {
-  [key: string]: OfferDetails;
+export type OfferFetchStatus = {
+  offer: RequestStatus;
+  offersNearby: RequestStatus;
+}
+
+export type OfferProcess = {
+  offer: OfferDetails | null;
+  offersNearby: Offer[];
+  fetch: OfferFetchStatus;
+}
+
+export type FavoritesFetchStatus = {
+  favorites: RequestStatus;
+}
+
+export type FavoritesProcess = {
+  favorites: Offer[];
+  fetch: FavoritesFetchStatus;
 }

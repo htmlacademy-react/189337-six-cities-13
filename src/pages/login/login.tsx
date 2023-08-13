@@ -7,10 +7,11 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AppRoute, CITIES } from '../../const';
 import { getRandomElement } from '../../cities';
 import { Cities } from '../../types/city';
-import { changeActiveCity } from '../../store/action';
+import { getIsAuth } from '../../store/user-process/selectors';
+import { changeActiveCity } from '../../store/cities-process/cities-process';
 
 function Login(): JSX.Element {
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const isAuth = useAppSelector(getIsAuth);
   const randomCity = getRandomElement<Cities>(CITIES);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

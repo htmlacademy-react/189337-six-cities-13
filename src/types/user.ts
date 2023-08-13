@@ -1,3 +1,4 @@
+import { RequestStatus } from '../const';
 import { Token } from './api';
 
 export type User = {
@@ -8,8 +9,15 @@ export type User = {
   token: Token;
 }
 
-export type AuthorizationInfo = {
-  isAuth: boolean;
-  isLoading: boolean;
-  user: User | null;
+export type UserFetchStatus = {
+  check: RequestStatus;
+  login: RequestStatus;
+  logout: RequestStatus;
 }
+
+export type UserProcess = {
+  isAuth: boolean;
+  userInfo: User | null;
+  fetch: UserFetchStatus;
+}
+

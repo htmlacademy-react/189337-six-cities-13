@@ -46,11 +46,13 @@ export const SORTING_MENUS = [
 ] as const;
 
 export enum ActionGroup {
-  Main = 'main',
-  Offers = 'offers',
+  Global = 'global',
+  Cities = 'cities',
+  Offer = 'offer',
   User = 'user',
   Data = 'data',
-  Reviews = 'reviews'
+  Reviews = 'reviews',
+  Favorites = 'favorites'
 }
 
 export enum APIRoute {

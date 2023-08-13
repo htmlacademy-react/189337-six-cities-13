@@ -4,6 +4,8 @@ import Rating from '../rating/rating';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendComment } from '../../store/api-action';
 import { RequestStatus, ReviewsConfig } from '../../const';
+import { getOfferId } from '../../store/offer-process/selectors';
+import { getSendCommentStatus } from '../../store/reviews-process/selectors';
 
 const formState: Review = {
   id: '',
@@ -21,8 +23,8 @@ function ReviewForm() {
   const [formData, setFormData] = useState(formState);
   const { comment, rating } = formData;
   const [isEnabled, setEnabled] = useState(false);
-  const offerId = useAppSelector((state) => state.offer?.id);
-  const sendCommentStatus = useAppSelector((state) => state.sendCommentStatus);
+  const offerId = useAppSelector(getOfferId);
+  const sendCommentStatus = useAppSelector(getSendCommentStatus);
   const dispatch = useAppDispatch();
 
   const clearForm = () => {
@@ -31,7 +33,7 @@ function ReviewForm() {
   };
 
   const validateForm = (fieldsForCheck: Pick<Review, 'comment' | 'rating'>) => {
-    setEnabled(fieldsForCheck.comment.length > ReviewsConfig.CommentMinLength && fieldsForCheck.comment.length < ReviewsConfig.CommentMaxLength && !!fieldsForCheck.rating);
+    setEnabled(fieldsForCheck.comment.length >= ReviewsConfig.CommentMinLength && fieldsForCheck.comment.length <= ReviewsConfig.CommentMaxLength && !!fieldsForCheck.rating);
   };
 
   const setRating = (value: number) => {
@@ -69,7 +71,7 @@ function ReviewForm() {
         value={comment}
       />
       <div className="reviews__button-wrapper">
-        {sendCommentStatus !== RequestStatus.Error && !isEnabled && comment.length < ReviewsConfig.CommentMaxLength &&
+        {sendCommentStatus !== RequestStatus.Error && !isEnabled && comment.length <= ReviewsConfig.CommentMaxLength &&
           <p className="reviews__help">
             To submit review please make sure to set
             <span className="reviews__star">rating</span> and describe

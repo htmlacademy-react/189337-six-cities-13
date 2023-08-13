@@ -2,13 +2,15 @@ import CardList from '../../components/card-list/card-list';
 import SortingMenu from '../../components/sorting-menu/sorting-menu';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
+import { getActiveCity, getCityInfo, getOfferSelected, getOffersSorted } from '../../store/cities-process/selectors';
 
 function Cities(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.activeCity);
-  const groupOffers = useAppSelector((state) => state.groupOffers);
-  const selectedOffer = useAppSelector((state) => state.selectedOffer);
+  const activeCity = useAppSelector(getActiveCity);
+  const offers = useAppSelector(getOffersSorted);
+  const cityInfo = useAppSelector(getCityInfo);
+  const offerSelected = useAppSelector(getOfferSelected);
 
-  const isNotEmpty = groupOffers && !!groupOffers.offers.length;
+  const isNotEmpty = !!offers.length && cityInfo;
 
   return (
     <div className="cities">
@@ -16,16 +18,16 @@ function Cities(): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{groupOffers.offers.length} places to stay in {activeCity}</b>
+            <b className="places__found">{offers.length} places to stay in {activeCity}</b>
             <SortingMenu />
             <CardList
               classNameWrapper="cities__places-list  places__list tabs__content"
               classNameCardPrefix="cities"
-              offers={groupOffers.offers}
+              offers={offers}
             />
           </section>
           <div className="cities__right-section">
-            <Map className={'cities__map'} groupOffer={groupOffers} selectedOffer={selectedOffer} />
+            <Map className={'cities__map'} city={cityInfo} offers={offers} offerSelected={offerSelected} />
           </div>
         </div>
         :

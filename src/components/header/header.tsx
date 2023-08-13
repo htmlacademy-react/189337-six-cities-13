@@ -4,6 +4,8 @@ import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-action';
+import { getFavorites } from '../../store/favorites-process/selectors';
+import { getIsAuth, getUserInfo } from '../../store/user-process/selectors';
 
 type HeaderProps = {
   activeLogo?: boolean;
@@ -11,9 +13,9 @@ type HeaderProps = {
 }
 
 function Header({ activeLogo = false, showNav = true }: HeaderProps): JSX.Element {
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const user = useAppSelector((state) => state.auth.user);
-  const favorites = useAppSelector((state) => state.favorites);
+  const isAuth = useAppSelector(getIsAuth);
+  const user = useAppSelector(getUserInfo);
+  const favorites = useAppSelector(getFavorites);
   const dispatch = useAppDispatch();
 
   const handleLogout = (event: MouseEvent) => {

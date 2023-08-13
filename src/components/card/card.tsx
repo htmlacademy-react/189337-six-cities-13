@@ -1,10 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offers';
 import { AppRoute } from '../../const';
 import classNames from 'classnames';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectOffer } from '../../store/action';
-import { setOfferIsFavorite } from '../../store/api-action';
+import { useAppDispatch } from '../../hooks';
+import ButtonBookmark from '../button-bookmark/button-bookmark';
+import { setOfferSelected } from '../../store/cities-process/cities-process';
 
 type CardProps = {
   offer: Offer;
@@ -13,18 +13,20 @@ type CardProps = {
 
 function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
   const { id, title, price, type, rating, isPremium, isFavorite } = offer;
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isOnMain = className === 'cities';
   const isOnFavorite = className === 'favorites';
   const isOnOffer = className === 'near-places';
 
-  const handleAddToFavorite = () => {
-    if (isAuth) {
-      dispatch(setOfferIsFavorite(offer));
-    } else {
-      navigate(AppRoute.Login);
+  const handleMouseEnterCard = () => {
+    if (!isOnOffer) {
+      dispatch(setOfferSelected(offer));
+    }
+  };
+
+  const handleMouseLeaveCard = () => {
+    if (!isOnOffer) {
+      dispatch(setOfferSelected(null));
     }
   };
 
@@ -34,16 +36,8 @@ function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
       'favorites__card': isOnFavorite,
       'near-places__card': isOnOffer
     }, 'place-card')}
-    onMouseEnter={() => {
-      if (!isOnOffer) {
-        dispatch(selectOffer(offer));
-      }
-    }}
-    onMouseLeave={() => {
-      if (!isOnOffer) {
-        dispatch(selectOffer(null));
-      }
-    }}
+    onMouseEnter={handleMouseEnterCard}
+    onMouseLeave={handleMouseLeaveCard}
     >
       {isPremium &&
         <div className="place-card__mark">
@@ -65,19 +59,7 @@ function Card({ offer, className = 'cities' }: CardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={
-            classNames({
-              'place-card__bookmark-button--active': isFavorite
-            }, 'place-card__bookmark-button', 'button')
-          }
-          type="button"
-          onClick={handleAddToFavorite}
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <ButtonBookmark className={'place-card'} isActive={isFavorite} offer={offer} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

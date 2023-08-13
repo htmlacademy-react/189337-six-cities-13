@@ -1,21 +1,16 @@
 import { Link } from 'react-router-dom';
-import { Offer, GroupOfferByCity } from '../../types/offers';
 import CardList from '../card-list/card-list';
 import { AppRoute } from '../../const';
-import { getGroupOffersByCity } from '../../cities';
 import { useAppSelector } from '../../hooks';
+import { getFavoritesGroupByCity } from '../../store/favorites-process/selectors';
 
-const getOffersByCity = (offers: Offer[]): GroupOfferByCity[] => {
-  const groupOffersByCity = getGroupOffersByCity(offers);
-  return Object.values(groupOffersByCity);
-};
 
 function GroupCardList(): JSX.Element {
-  const offers = useAppSelector((state) => state.favorites);
+  const offers = useAppSelector(getFavoritesGroupByCity);
   return (
     <ul className="favorites__list">
       {
-        getOffersByCity(offers).map((groupOffer) => {
+        offers.map((groupOffer) => {
           const { city: { name } } = groupOffer;
           return (
             <li key={name} className="favorites__locations-items">
