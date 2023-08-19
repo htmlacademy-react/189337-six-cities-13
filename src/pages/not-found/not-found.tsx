@@ -5,7 +5,7 @@ import { AppRoute } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 
-export default function NotFound(): JSX.Element {
+function NotFound(): JSX.Element {
   return (
     <div className="page page--favorites-empty">
       <Helmet>
@@ -36,3 +36,5 @@ export default function NotFound(): JSX.Element {
     </div>
   );
 }
+
+export default NotFound;

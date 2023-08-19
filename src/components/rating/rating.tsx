@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment } from 'react';
+import { ChangeEvent, Fragment, memo } from 'react';
 
 type RatingProps = {
   rating: number;
@@ -13,7 +13,7 @@ const RATING_DATA = [
   { value: 1, title: 'terribly' }
 ] as const;
 
-export default function Rating({ rating, setRating }: RatingProps) {
+function Rating({ rating, setRating }: RatingProps) {
 
   const handleChangeRating = ({ target: { defaultValue } }: ChangeEvent<HTMLInputElement>) => {
     setRating(+defaultValue);
@@ -49,3 +49,6 @@ export default function Rating({ rating, setRating }: RatingProps) {
     </div>
   );
 }
+
+const RatingMemo = memo(Rating);
+export default RatingMemo;

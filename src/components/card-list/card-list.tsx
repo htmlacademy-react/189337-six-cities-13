@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Offer } from '../../types/offers';
 import Card from '../card/card';
 
@@ -7,7 +8,7 @@ type CardListProps = {
   classNameCardPrefix?: string;
 }
 
-export default function CardList({ offers, classNameWrapper, classNameCardPrefix }: CardListProps): JSX.Element {
+function CardList({ offers, classNameWrapper, classNameCardPrefix }: CardListProps): JSX.Element {
   return (
     <div className={classNameWrapper}>
       {
@@ -16,3 +17,6 @@ export default function CardList({ offers, classNameWrapper, classNameCardPrefix
     </div >
   );
 }
+
+const CardListMemo = memo(CardList);
+export default CardListMemo;

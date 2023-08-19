@@ -1,3 +1,4 @@
+import { RequestStatus } from '../const';
 import { Host } from './offers';
 
 export type Review = {
@@ -8,6 +9,12 @@ export type Review = {
   rating: number;
 }
 
-export type GroupReviewById = {
-  [key: string]: Review [];
+export type ReviewsFetchStatus = {
+  reviews: RequestStatus;
+  sendComment: RequestStatus;
+}
+
+export type ReviewsProcess = {
+  reviews: Review [];
+  fetch: ReviewsFetchStatus;
 }

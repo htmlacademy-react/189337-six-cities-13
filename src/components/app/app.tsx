@@ -13,7 +13,7 @@ import browserHistory from '../../browser-history';
 import { ToastContainer } from 'react-toastify';
 
 
-export default function App(): JSX.Element {
+function App(): JSX.Element {
   return (
     <>
       <HelmetProvider>
@@ -37,3 +37,5 @@ export default function App(): JSX.Element {
     </>
   );
 }
+
+export default App;

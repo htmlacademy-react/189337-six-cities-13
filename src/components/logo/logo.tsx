@@ -6,7 +6,7 @@ type LogoProps = {
   isFooter?: boolean;
 }
 
-export default function Logo({ active = false, isFooter = false }: LogoProps): JSX.Element {
+function Logo({ active = false, isFooter = false }: LogoProps): JSX.Element {
   const classType = isFooter ? 'footer' : 'header';
   return (
     <Link className={`${classType}__logo-link ${active ? 'header__logo-link--active' : ''}`} to={AppRoute.Main}>
@@ -20,3 +20,5 @@ export default function Logo({ active = false, isFooter = false }: LogoProps): J
     </Link>
   );
 }
+
+export default Logo;

@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import { SORTING_MENUS } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeActiveSort, toggleSortingMenu } from '../../store/action';
-import { useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
+import { getActiveSort, getSortingMenuVisible } from '../../store/cities-process/selectors';
+import { changeActiveSort, toggleSortingMenu } from '../../store/cities-process/cities-process';
 
-export default function SortingMenu() {
-  const activeSort = useAppSelector((state) => state.sortingMenu.activeSort);
-  const isVisible = useAppSelector((state) => state.sortingMenu.visible);
+function SortingMenu() {
+  const activeSort = useAppSelector(getActiveSort);
+  const isVisible = useAppSelector(getSortingMenuVisible);
   const dispatch = useAppDispatch();
   const menuRef = useRef<HTMLFormElement>(null);
 
@@ -63,3 +64,6 @@ export default function SortingMenu() {
     </form>
   );
 }
+
+const SortingMenuMemo = memo(SortingMenu);
+export default SortingMenuMemo;

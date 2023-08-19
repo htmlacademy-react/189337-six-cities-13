@@ -1,12 +1,27 @@
+import { MouseEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import LoginForm from '../../components/login-form/login-form';
-import { useAppSelector } from '../../hooks';
-import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { AppRoute, CITIES } from '../../const';
+import { getRandomElement } from '../../cities';
+import { Cities } from '../../types/city';
+import { getIsAuth } from '../../store/user-process/selectors';
+import { changeActiveCity } from '../../store/cities-process/cities-process';
 
-export default function Login(): JSX.Element {
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
+function Login(): JSX.Element {
+  const isAuth = useAppSelector(getIsAuth);
+  const randomCity = getRandomElement<Cities>(CITIES);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleNavigateToRandomCity = (event: MouseEvent) => {
+    event.preventDefault();
+    dispatch(changeActiveCity(randomCity));
+    navigate(AppRoute.Main);
+  };
+
   return (
     !isAuth ?
       <div className="page page--gray page--login">
@@ -22,9 +37,13 @@ export default function Login(): JSX.Element {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
-                  <span>Amsterdam</span>
-                </a>
+                <Link
+                  className="locations__item-link"
+                  to={AppRoute.Main}
+                  onClick={handleNavigateToRandomCity}
+                >
+                  <span>{randomCity}</span>
+                </Link>
               </div>
             </section>
           </div>
@@ -34,3 +53,5 @@ export default function Login(): JSX.Element {
       <Navigate to={AppRoute.Main} />
   );
 }
+
+export default Login;

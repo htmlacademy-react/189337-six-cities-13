@@ -4,7 +4,9 @@ type ReviewProps = {
   review: Review;
 }
 
-export default function ReviewItem({ review }: ReviewProps) {
+const MULTIPLY_COEF_RATING = 20;
+
+function ReviewItem({ review }: ReviewProps) {
   const { date, comment, rating, user: { name, avatarUrl }} = review;
   return (
     <li className="reviews__item">
@@ -23,7 +25,7 @@ export default function ReviewItem({ review }: ReviewProps) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${rating * 10}%` }} />
+            <span style={{ width: `${rating * MULTIPLY_COEF_RATING}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -37,3 +39,5 @@ export default function ReviewItem({ review }: ReviewProps) {
     </li>
   );
 }
+
+export default ReviewItem;

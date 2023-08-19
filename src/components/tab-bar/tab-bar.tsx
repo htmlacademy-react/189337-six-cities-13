@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../hooks';
+import { getActiveCity } from '../../store/cities-process/selectors';
 import { Cities } from '../../types/city';
 import TabBarItem from '../tab-bar-item/tab-bar-item';
 
@@ -6,8 +7,8 @@ type TabBarProps = {
   items: readonly Cities[];
 }
 
-export default function TabBar({ items }: TabBarProps): JSX.Element {
-  const activeCity = useAppSelector((state) => state.activeCity);
+function TabBar({ items }: TabBarProps): JSX.Element {
+  const activeCity = useAppSelector(getActiveCity);
 
   return (
     <div className="tabs">
@@ -19,3 +20,5 @@ export default function TabBar({ items }: TabBarProps): JSX.Element {
     </div>
   );
 }
+
+export default TabBar;

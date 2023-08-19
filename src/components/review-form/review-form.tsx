@@ -3,8 +3,9 @@ import { Review } from '../../types/review';
 import Rating from '../rating/rating';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendComment } from '../../store/api-action';
-
-const REVIEW_COMMENT_MIN_LENGTH = 50;
+import { RequestStatus, ReviewsConfig } from '../../const';
+import { getOfferId } from '../../store/offer-process/selectors';
+import { getSendCommentStatus } from '../../store/reviews-process/selectors';
 
 const formState: Review = {
   id: '',
@@ -18,11 +19,12 @@ const formState: Review = {
   rating: 0
 };
 
-export default function ReviewForm() {
+function ReviewForm() {
   const [formData, setFormData] = useState(formState);
   const { comment, rating } = formData;
   const [isEnabled, setEnabled] = useState(false);
-  const offerId = useAppSelector((state) => state.offer?.id);
+  const offerId = useAppSelector(getOfferId);
+  const sendCommentStatus = useAppSelector(getSendCommentStatus);
   const dispatch = useAppDispatch();
 
   const clearForm = () => {
@@ -31,7 +33,7 @@ export default function ReviewForm() {
   };
 
   const validateForm = (fieldsForCheck: Pick<Review, 'comment' | 'rating'>) => {
-    setEnabled(fieldsForCheck.comment.length > REVIEW_COMMENT_MIN_LENGTH && !!fieldsForCheck.rating);
+    setEnabled(fieldsForCheck.comment.length >= ReviewsConfig.CommentMinLength && fieldsForCheck.comment.length <= ReviewsConfig.CommentMaxLength && !!fieldsForCheck.rating);
   };
 
   const setRating = (value: number) => {
@@ -69,12 +71,24 @@ export default function ReviewForm() {
         value={comment}
       />
       <div className="reviews__button-wrapper">
-        {!isEnabled &&
+        {sendCommentStatus !== RequestStatus.Error && !isEnabled && comment.length <= ReviewsConfig.CommentMaxLength &&
           <p className="reviews__help">
             To submit review please make sure to set
             <span className="reviews__star">rating</span> and describe
             your stay with at least
-            <b className="reviews__text-amount">{REVIEW_COMMENT_MIN_LENGTH} characters</b>.
+            <b className="reviews__text-amount">{ReviewsConfig.CommentMinLength} characters</b>.
+          </p>}
+        {sendCommentStatus !== RequestStatus.Error && !isEnabled && comment.length > ReviewsConfig.CommentMaxLength &&
+          <p className="reviews__help">
+            Max comment length
+            <b className="reviews__text-amount">{ReviewsConfig.CommentMaxLength} characters</b>.
+          </p>}
+        {sendCommentStatus === RequestStatus.Error &&
+          <p className="reviews__help">
+            <b style={{ color: 'red' }}>Apologies, but it seems that there was an error on our server while processing your comment.
+              Please try again later, and if the issue persists, feel free to contact our support team.
+              We appreciate your understanding!
+            </b>
           </p>}
         <button
           className="reviews__submit form__submit button"
@@ -84,6 +98,8 @@ export default function ReviewForm() {
           Submit
         </button>
       </div>
-    </form>
+    </form >
   );
 }
+
+export default ReviewForm;

@@ -1,15 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import useMap from '../../hooks/use-map';
-import { GroupOfferByCity, Offer } from '../../types/offers';
+import { Offer } from '../../types/offers';
 import 'leaflet/dist/leaflet.css';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import { MapSettings, ResourcePath } from '../../const';
 import classNames from 'classnames';
+import { City } from '../../types/city';
+import { getOfferSelected } from '../../store/cities-process/selectors';
+import { useAppSelector } from '../../hooks';
 
 type MapProps = {
   className: string;
-  groupOffer: GroupOfferByCity;
-  selectedOffer?: Offer | null;
+  offers: Offer[];
+  city: City;
 }
 
 const getDefaultCustomIcon = (): Icon => new Icon({
@@ -24,9 +27,10 @@ const getCurrentCustomIcon = (): Icon => new Icon({
   iconAnchor: [MapSettings.PinActiveIconAnchorX, MapSettings.PinActiveIconAnchorY]
 });
 
-export default function Map({ className, groupOffer: { city, offers }, selectedOffer }: MapProps): JSX.Element {
+function Map({ className, city, offers }: MapProps): JSX.Element {
   const refMap = useRef<HTMLElement | null>(null);
   const map = useMap(refMap, city);
+  const offerSelected = useAppSelector(getOfferSelected);
 
   useEffect(() => {
     if (map) {
@@ -40,7 +44,7 @@ export default function Map({ className, groupOffer: { city, offers }, selectedO
 
         marker
           .setIcon(
-            !!selectedOffer && id === selectedOffer.id
+            !!offerSelected && id === offerSelected.id
               ? getCurrentCustomIcon()
               : getDefaultCustomIcon()
           )
@@ -51,9 +55,12 @@ export default function Map({ className, groupOffer: { city, offers }, selectedO
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, offerSelected]);
 
   return (
     <section ref={refMap} className={classNames(className, 'map')}></section>
   );
 }
+
+const MapMemo = memo(Map);
+export default MapMemo;
