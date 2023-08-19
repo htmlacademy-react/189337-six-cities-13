@@ -16,7 +16,7 @@ function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleNavigateToRandomCity = (event: MouseEvent) => {
+  const handleNavigateToCity = (event: MouseEvent) => {
     event.preventDefault();
     dispatch(changeActiveCity(randomCity));
     navigate(AppRoute.Main);
@@ -40,7 +40,7 @@ function Login(): JSX.Element {
                 <Link
                   className="locations__item-link"
                   to={AppRoute.Main}
-                  onClick={handleNavigateToRandomCity}
+                  onClick={handleNavigateToCity}
                 >
                   <span>{randomCity}</span>
                 </Link>
