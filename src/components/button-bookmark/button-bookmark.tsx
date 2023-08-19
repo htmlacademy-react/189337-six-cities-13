@@ -17,8 +17,8 @@ function ButtonBookmark({ className, isActive, offer }: ButtonBookmarkProps) {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(getIsAuth);
   const isOnOffer = className === 'offer';
-  const iconWidth = isOnOffer ? BookmarkIconConfig.offerWidth : BookmarkIconConfig.baseWidth;
-  const iconHeight = isOnOffer ? BookmarkIconConfig.offerHeight : BookmarkIconConfig.baseHeight;
+  const iconWidth: BookmarkIconConfig = isOnOffer ? BookmarkIconConfig.offerWidth : BookmarkIconConfig.baseWidth;
+  const iconHeight: BookmarkIconConfig = isOnOffer ? BookmarkIconConfig.offerHeight : BookmarkIconConfig.baseHeight;
 
   const handleAddOfferToFavorites = () => {
     if (isAuth) {

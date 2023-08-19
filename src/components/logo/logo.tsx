@@ -9,8 +9,8 @@ type LogoProps = {
 
 function Logo({ className = 'header', isActive = false }: LogoProps): JSX.Element {
   const isFooter = className === 'footer';
-  const iconWidth = isFooter ? LogoIconConfig.footerWidth : LogoIconConfig.baseWidth;
-  const iconHeight = isFooter ? LogoIconConfig.footerHeight : LogoIconConfig.baseHeight;
+  const iconWidth: LogoIconConfig = isFooter ? LogoIconConfig.footerWidth : LogoIconConfig.baseWidth;
+  const iconHeight: LogoIconConfig = isFooter ? LogoIconConfig.footerHeight : LogoIconConfig.baseHeight;
 
   return (
     <Link
