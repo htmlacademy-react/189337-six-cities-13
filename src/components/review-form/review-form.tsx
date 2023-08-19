@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 import { Review } from '../../types/review';
 import Rating from '../rating/rating';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -36,13 +36,15 @@ function ReviewForm() {
     setEnabled(fieldsForCheck.comment.length >= ReviewsConfig.CommentMinLength && fieldsForCheck.comment.length <= ReviewsConfig.CommentMaxLength && !!fieldsForCheck.rating);
   };
 
-  const setRating = (value: number) => {
+  useEffect(() => {
+    validateForm({ comment, rating });
+  }, [comment, rating]);
+
+  const setRating = useCallback((value: number) => {
     setFormData((prev) => ({ ...prev, rating: value }));
-    validateForm({ comment, rating: value });
-  };
+  }, []);
   const handleChangeComment = ({ target: { value } }: ChangeEvent<HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, comment: value }));
-    validateForm({ comment: value, rating });
   };
   const handleSubmitReview = ((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,6 +53,7 @@ function ReviewForm() {
       clearForm();
     }
   });
+
   return (
     <form
       className="reviews__form form"
