@@ -1,4 +1,5 @@
 import { Review } from './review';
+import { RequestStatus } from '../const';
 
 export type AuthData = {
   login: string;
@@ -11,5 +12,9 @@ export type DetailMessageType = {
   type: string;
   message: string;
 }
+
+export type FetchStatusObject<T> = {
+  [key in keyof T]?: RequestStatus;
+};
 
 export type Token = string;
