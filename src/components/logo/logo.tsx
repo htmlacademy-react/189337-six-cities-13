@@ -1,21 +1,30 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, LogoIconConfig } from '../../const';
+import classNames from 'classnames';
 
 type LogoProps = {
-  active?: boolean;
-  isFooter?: boolean;
+  className?: string;
+  isActive?: boolean;
 }
 
-function Logo({ active = false, isFooter = false }: LogoProps): JSX.Element {
-  const classType = isFooter ? 'footer' : 'header';
+function Logo({ className = 'header', isActive = false }: LogoProps): JSX.Element {
+  const isFooter = className === 'footer';
+  const iconWidth = isFooter ? LogoIconConfig.footerWidth : LogoIconConfig.baseWidth;
+  const iconHeight = isFooter ? LogoIconConfig.footerHeight : LogoIconConfig.baseHeight;
+
   return (
-    <Link className={`${classType}__logo-link ${active ? 'header__logo-link--active' : ''}`} to={AppRoute.Main}>
+    <Link
+      className={classNames(`${className}__logo-link`, {
+        [`${className}__logo-link--active`]: isActive
+      })}
+      to={AppRoute.Main}
+    >
       <img
-        className={`${classType}__logo`}
+        className={`${className}__logo`}
         src="img/logo.svg"
         alt="6 cities logo"
-        width={isFooter ? 64 : 81}
-        height={isFooter ? 33 : 41}
+        width={iconWidth}
+        height={iconHeight}
       />
     </Link>
   );

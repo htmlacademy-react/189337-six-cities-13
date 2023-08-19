@@ -36,7 +36,7 @@ function Favorites(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <Logo isFooter />
+        <Logo className="footer" />
       </footer>
     </div>
   );

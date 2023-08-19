@@ -12,7 +12,7 @@ function Main(): JSX.Element {
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <Header activeLogo />
+      <Header isActiveLogo />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <TabBar items={CITIES} />
