@@ -8,11 +8,11 @@ import { getFavorites } from '../../store/favorites-process/selectors';
 import { getIsAuth, getUserInfo } from '../../store/user-process/selectors';
 
 type HeaderProps = {
-  activeLogo?: boolean;
+  isActiveLogo?: boolean;
   showNav?: boolean;
 }
 
-function Header({ activeLogo = false, showNav = true }: HeaderProps): JSX.Element {
+function Header({ isActiveLogo = false, showNav = true }: HeaderProps): JSX.Element {
   const isAuth = useAppSelector(getIsAuth);
   const user = useAppSelector(getUserInfo);
   const favorites = useAppSelector(getFavorites);
@@ -28,7 +28,7 @@ function Header({ activeLogo = false, showNav = true }: HeaderProps): JSX.Elemen
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo active={activeLogo} />
+            <Logo isActive={isActiveLogo} />
           </div>
           {showNav &&
             <nav className="header__nav">

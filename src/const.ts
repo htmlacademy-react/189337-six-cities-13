@@ -90,6 +90,13 @@ export enum BookmarkIconConfig {
   offerHeight = 33
 }
 
+export enum LogoIconConfig {
+  baseWidth = 81,
+  baseHeight = 41,
+  footerWidth = 64,
+  footerHeight = 33
+}
+
 export const NEARBY_OFFERS_COUNT_ON_OFFER_PAGE = 3;
 
 export const GLOBAL_TOAST_ID = 'GLOBAL_TOAST_ID';
