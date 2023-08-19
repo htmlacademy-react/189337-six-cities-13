@@ -1,3 +1,4 @@
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { CITIES, OfferTypes, RequestStatus, SortingTypes } from '../const';
 import { FetchStatusObject } from '../types/api';
 import { CitiesFetchStatus, CitiesProcess, City } from '../types/city';
@@ -80,4 +81,3 @@ export const makeEmptyCitiesState = (): CitiesProcess => ({
   activeCity: CITIES[0], cityInfo: null, offers: [], offersAll: [], offerSelected: null, sortingMenu: { visible: false, activeSort: SortingTypes.Popular },
   fetch: makeFakeFetchStatus<CitiesFetchStatus>(['offers', 'addOfferToFavorites'])
 });
-
