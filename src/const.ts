@@ -83,6 +83,13 @@ export enum RequestStatus {
   Error = 3
 }
 
+export enum BookmarkIconConfig {
+  baseWidth = 18,
+  baseHeight = 19,
+  offerWidth = 31,
+  offerHeight = 33
+}
+
 export const NEARBY_OFFERS_COUNT_ON_OFFER_PAGE = 3;
 
 export const GLOBAL_TOAST_ID = 'GLOBAL_TOAST_ID';
