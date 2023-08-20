@@ -25,6 +25,7 @@ function Logo({ className = 'header', isActive = false }: LogoProps): JSX.Elemen
         alt="6 cities logo"
         width={iconWidth}
         height={iconHeight}
+        data-testid="logo-img"
       />
     </Link>
   );

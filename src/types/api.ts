@@ -1,4 +1,5 @@
 import { Review } from './review';
+import { RequestStatus } from '../const';
 
 export type AuthData = {
   login: string;
@@ -12,4 +13,12 @@ export type DetailMessageType = {
   message: string;
 }
 
+export type FetchStatusObject<T> = {
+  [key in keyof T]?: RequestStatus;
+};
+
 export type Token = string;
+
+export type Api = {
+  setLoader?: (isAcitve: boolean) => void;
+}

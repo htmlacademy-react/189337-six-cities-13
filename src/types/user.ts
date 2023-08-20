@@ -20,4 +20,3 @@ export type UserProcess = {
   userInfo: User | null;
   fetch: UserFetchStatus;
 }
-
