@@ -9,6 +9,7 @@ import { removeToken, saveToken } from '../services/token.js';
 import { Review } from '../types/review.js';
 import { resetSendCommentStatus } from './reviews-process/reviews-process.js';
 import { redirectToRoute } from './action.js';
+import { setLoaderIsActive } from './global-process/global-process.js';
 
 export const fetchOffers = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
@@ -29,8 +30,10 @@ export const fetchOffersNearby = createAsyncThunk<Offer[], Offer['id'], {
   extra: AxiosInstance;
 }>(
   `${ActionGroup.Data}/fetchOffersNearby`,
-  async (id, { extra: api }) => {
+  async (id, { dispatch, extra: api }) => {
+    dispatch(setLoaderIsActive(false));
     const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`);
+    dispatch(setLoaderIsActive(true));
     return data;
   }
 );
@@ -41,8 +44,10 @@ export const fetchReviews = createAsyncThunk<Review[], Offer['id'], {
   extra: AxiosInstance;
 }>(
   `${ActionGroup.Data}/fetchReviews`,
-  async (id, { extra: api }) => {
+  async (id, { dispatch, extra: api }) => {
+    dispatch(setLoaderIsActive(false));
     const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${id}`);
+    dispatch(setLoaderIsActive(true));
     return data;
   }
 );
@@ -79,15 +84,14 @@ export const fetchFavorites = createAsyncThunk<Offer[], undefined, {
   }
 );
 
-export const addOfferToFavorites = createAsyncThunk<OfferDetails, Offer | OfferDetails, {
+export const addOfferToFavorites = createAsyncThunk<Offer, Offer | OfferDetails, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   `${ActionGroup.User}/addOfferToFavorites`,
-  async ({ id, isFavorite }, { dispatch, extra: api }) => {
-    const { data } = await api.post<OfferDetails>(`${APIRoute.Favorites}/${id}/${+(!isFavorite)}`);
-    dispatch(fetchFavorites());
+  async ({ id, isFavorite }, { extra: api }) => {
+    const { data } = await api.post<Offer>(`${APIRoute.Favorites}/${id}/${+(!isFavorite)}`);
     return data;
   }
 );
@@ -143,7 +147,7 @@ export const clearSendCommentStatus = createAsyncThunk<void, undefined, {
   }
 );
 
-export const sendComment = createAsyncThunk<void, ReviewData, {
+export const sendComment = createAsyncThunk<Review, ReviewData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -151,8 +155,8 @@ export const sendComment = createAsyncThunk<void, ReviewData, {
   `${ActionGroup.User}/sendComment`,
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
     try {
-      await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
-      dispatch(fetchReviews(id));
+      const { data } = await api.post<Review>(`${APIRoute.Comments}/${id}`, { comment, rating });
+      return data;
     } catch (error) {
       dispatch(clearSendCommentStatus());
       throw error;

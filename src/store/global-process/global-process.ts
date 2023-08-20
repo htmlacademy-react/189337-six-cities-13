@@ -3,7 +3,8 @@ import { ActionGroup } from '../../const';
 import { GlobalProcess } from '../../types/global';
 
 const initialState: GlobalProcess = {
-  isLoading: false
+  isLoading: false,
+  loaderIsActive: true
 };
 
 export const globalProcess = createSlice({
@@ -11,9 +12,12 @@ export const globalProcess = createSlice({
   initialState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
-      state.isLoading = payload;
-    }
+      state.isLoading = payload && state.loaderIsActive;
+    },
+    setLoaderIsActive: (state, { payload }: PayloadAction<boolean>) => {
+      state.loaderIsActive = payload;
+    },
   }
 });
 
-export const { setIsLoading } = globalProcess.actions;
+export const { setIsLoading, setLoaderIsActive } = globalProcess.actions;

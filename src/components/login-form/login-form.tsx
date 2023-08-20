@@ -14,7 +14,7 @@ function LoginForm() {
   const { login, password } = authData;
   const dispatch = useAppDispatch();
 
-  const validateForm = (): boolean => /^(?=.*[A-Z])(?=.*\d).*$/.test(password);
+  const validateForm = (): boolean => /^(?=.*[A-Za-z])(?=.*\d).*$/.test(password);
 
   const checkEnabled = (data: AuthData) => {
     setEnabled(!!data.login.length && !!data.password.length);

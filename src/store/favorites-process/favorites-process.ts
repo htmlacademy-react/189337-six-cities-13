@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ActionGroup, RequestStatus } from '../../const';
-import { fetchFavorites } from '../api-action';
+import { addOfferToFavorites, fetchFavorites } from '../api-action';
 import { FavoritesProcess } from '../../types/offers';
 
 const initialState: FavoritesProcess = {
@@ -22,6 +22,14 @@ export const favoritesProcess = createSlice({
       })
       .addCase(fetchFavorites.rejected, (state) => {
         state.fetch.favorites = RequestStatus.Error;
+      })
+      .addCase(addOfferToFavorites.fulfilled, (state, { payload }) => {
+        const { id, isFavorite } = payload;
+        if(!isFavorite) {
+          state.favorites = state.favorites.filter((offer) => offer.id !== id);
+        } else {
+          state.favorites.push(payload);
+        }
       });
   }
 });

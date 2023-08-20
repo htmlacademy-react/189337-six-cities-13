@@ -6,6 +6,7 @@ import { sendComment } from '../../store/api-action';
 import { RequestStatus, ReviewsConfig } from '../../const';
 import { getOfferId } from '../../store/offer-process/selectors';
 import { getSendCommentStatus } from '../../store/reviews-process/selectors';
+import { useLocation } from 'react-router-dom';
 
 const formState: Review = {
   id: '',
@@ -20,6 +21,7 @@ const formState: Review = {
 };
 
 function ReviewForm() {
+  const location = useLocation();
   const [formData, setFormData] = useState(formState);
   const { comment, rating } = formData;
   const [isEnabled, setEnabled] = useState(false);
@@ -32,13 +34,25 @@ function ReviewForm() {
     setEnabled(false);
   };
 
-  const validateForm = (fieldsForCheck: Pick<Review, 'comment' | 'rating'>) => {
-    setEnabled(fieldsForCheck.comment.length >= ReviewsConfig.CommentMinLength && fieldsForCheck.comment.length <= ReviewsConfig.CommentMaxLength && !!fieldsForCheck.rating);
-  };
+  const validateForm = useCallback((fieldsForCheck: Pick<Review, 'comment' | 'rating'>) => {
+    setEnabled([RequestStatus.Idle, RequestStatus.Success].indexOf(sendCommentStatus) !== -1 &&
+      fieldsForCheck.comment.length >= ReviewsConfig.CommentMinLength &&
+      fieldsForCheck.comment.length <= ReviewsConfig.CommentMaxLength && !!fieldsForCheck.rating);
+  }, [sendCommentStatus]);
+
+  useEffect(() => {
+    clearForm();
+  }, [location]);
 
   useEffect(() => {
     validateForm({ comment, rating });
-  }, [comment, rating]);
+  }, [validateForm, comment, rating]);
+
+  useEffect(() => {
+    if (sendCommentStatus === RequestStatus.Success) {
+      clearForm();
+    }
+  }, [sendCommentStatus]);
 
   const setRating = useCallback((value: number) => {
     setFormData((prev) => ({ ...prev, rating: value }));
@@ -50,7 +64,6 @@ function ReviewForm() {
     event.preventDefault();
     if (offerId) {
       dispatch(sendComment({ id: offerId, comment, rating }));
-      clearForm();
     }
   });
 
@@ -72,6 +85,7 @@ function ReviewForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleChangeComment}
         value={comment}
+        disabled={sendCommentStatus === RequestStatus.Pending}
       />
       <div className="reviews__button-wrapper">
         {sendCommentStatus !== RequestStatus.Error && !isEnabled && comment.length <= ReviewsConfig.CommentMaxLength &&
