@@ -1,11 +1,14 @@
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { CITIES, OfferTypes, RequestStatus, SortingTypes } from '../const';
+import { ActionGroup, CITIES, OfferTypes, RequestStatus, SortingTypes } from '../const';
 import { FetchStatusObject } from '../types/api';
 import { CitiesFetchStatus, CitiesProcess, City } from '../types/city';
-import { Offer, Location, OfferDetails, OfferType } from '../types/offers';
-import { Review } from '../types/review';
-import { User } from '../types/user';
+import { Offer, Location, OfferDetails, OfferType, OfferProcess, OfferFetchStatus, FavoritesProcess, FavoritesFetchStatus } from '../types/offers';
+import { Review, ReviewsFetchStatus, ReviewsProcess } from '../types/review';
+import { User, UserFetchStatus, UserProcess } from '../types/user';
 import * as faker from 'faker';
+import { State } from '../types/state';
+import { createAPI } from '../services/api';
+import { GlobalProcess } from '../types/global';
 
 export const makeFakeFetchStatus = <T>(keys: (keyof T)[]): T =>
   keys.reduce((acc: FetchStatusObject<T>, key) => {
@@ -80,4 +83,44 @@ export const makeFakeOfferDetails = (): OfferDetails => {
 export const makeEmptyCitiesState = (): CitiesProcess => ({
   activeCity: CITIES[0], cityInfo: null, offers: [], offersAll: [], offerSelected: null, sortingMenu: { visible: false, activeSort: SortingTypes.Popular },
   fetch: makeFakeFetchStatus<CitiesFetchStatus>(['offers', 'addOfferToFavorites'])
+});
+
+export const makeEmptyGlobalState = (): GlobalProcess => ({
+  isLoading: false
+});
+
+export const makeEmptyOfferState = (): OfferProcess => ({
+  offer: null,
+  offersNearby: [],
+  fetch: makeFakeFetchStatus<OfferFetchStatus>(['offer', 'offersNearby'])
+});
+
+export const makeEmptyReviewsState = (): ReviewsProcess => ({
+  reviews: [],
+  fetch: makeFakeFetchStatus<ReviewsFetchStatus>(['reviews', 'sendComment'])
+});
+
+export const makeEmptyFavoritesState = (): FavoritesProcess => ({
+  favorites: [],
+  fetch: makeFakeFetchStatus<FavoritesFetchStatus>(['favorites'])
+});
+
+export const makeEmptyUserState = (): UserProcess => ({
+  isAuth: false,
+  userInfo: null,
+  fetch: makeFakeFetchStatus<UserFetchStatus>(['check', 'login', 'logout']),
+});
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  [ActionGroup.Global]: makeEmptyGlobalState(),
+  [ActionGroup.Cities]: makeEmptyCitiesState(),
+  [ActionGroup.Offer]: makeEmptyOfferState(),
+  [ActionGroup.Reviews]: makeEmptyReviewsState(),
+  [ActionGroup.Favorites]: makeEmptyFavoritesState(),
+  [ActionGroup.User]: makeEmptyUserState(),
+  ...initialState ?? {},
 });

@@ -37,6 +37,7 @@ function ButtonBookmark({ className, isActive, offer }: ButtonBookmarkProps) {
       }
       type="button"
       onClick={handleAddOfferToFavorites}
+      data-testid="button-bookmark"
     >
       <svg
         className={`${className}__bookmark-icon`}

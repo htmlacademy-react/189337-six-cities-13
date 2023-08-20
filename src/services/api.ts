@@ -2,10 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getToken } from './token';
 import { ToastPosition, toast } from 'react-toastify';
 import { APIRoute, GLOBAL_TOAST_ID, StatusCodeError } from '../const';
-import { DetailMessageType } from '../types/api';
-import { store } from '../store';
-import { setIsLoading } from '../store/global-process/global-process';
-
+import { Api, DetailMessageType } from '../types/api';
 const BACKEND_URL = 'https://13.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 const TOAST_POSITION: ToastPosition = 'top-center';
@@ -31,7 +28,7 @@ const getErrorText = ({ message, response }: AxiosError<DetailMessageType>): str
   return out;
 };
 
-export const createAPI = (): AxiosInstance => {
+export const createAPI = ({ setLoader }: Api = {}): AxiosInstance => {
 
   const api = axios.create({
     baseURL: BACKEND_URL,
@@ -45,18 +42,18 @@ export const createAPI = (): AxiosInstance => {
       if (token && config.headers) {
         config.headers['X-Token'] = token;
       }
-      store.dispatch(setIsLoading(true));
+      setLoader?.(true);
       return config;
     },
     (error: AxiosError) => {
-      store.dispatch(setIsLoading(false));
+      setLoader?.(false);
       throw error;
     }
   );
 
   api.interceptors.response.use(
     (response) => {
-      store.dispatch(setIsLoading(false));
+      setLoader?.(false);
       return response;
     },
     (error: AxiosError<DetailMessageType>) => {
@@ -67,7 +64,7 @@ export const createAPI = (): AxiosInstance => {
           toastId: GLOBAL_TOAST_ID
         });
       }
-      store.dispatch(setIsLoading(false));
+      setLoader?.(false);
       throw error;
     }
   );

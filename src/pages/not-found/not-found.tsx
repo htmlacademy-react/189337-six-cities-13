@@ -11,8 +11,11 @@ function NotFound(): JSX.Element {
       <Helmet>
         <title>6 cities: not found</title>
       </Helmet>
-      <Header showNav={false}/>
-      <main className="page__main page__main--favorites page__main--favorites-empty">
+      <Header showNav={false} />
+      <main
+        className="page__main page__main--favorites page__main--favorites-empty"
+        data-testid="not-found-container"
+      >
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
             <h1 className="visually-hidden">404 Page not found</h1>
@@ -31,7 +34,7 @@ function NotFound(): JSX.Element {
         </div>
       </main>
       <footer className="footer">
-        <Logo isFooter />
+        <Logo className="footer" />
       </footer>
     </div>
   );

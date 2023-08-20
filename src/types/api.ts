@@ -18,3 +18,7 @@ export type FetchStatusObject<T> = {
 };
 
 export type Token = string;
+
+export type Api = {
+  setLoader?: (isAcitve: boolean) => void;
+}

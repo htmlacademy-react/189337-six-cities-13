@@ -8,7 +8,7 @@ import { State } from '../../types/state';
 
 vi.mock('../../browser-history', () => ({
   default: {
-    location: { pathname: '' },
+    location: { pathname: ''},
     push(path: string) {
       this.location.pathname = path;
     }

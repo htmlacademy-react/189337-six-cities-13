@@ -16,7 +16,10 @@ function Favorites(): JSX.Element {
         <title>6 cities: favorites</title>
       </Helmet>
       <Header />
-      <main className={classNames('page__main', 'page__main--favorites', { 'page__main--favorites-empty': !isNotEmpty })}>
+      <main
+        className={classNames('page__main', 'page__main--favorites', { 'page__main--favorites-empty': !isNotEmpty })}
+        data-testid="favorites-container"
+      >
         <div className="page__favorites-container container">
           <section className={classNames('favorites', { 'favorites--empty': !isNotEmpty })}>
             {
