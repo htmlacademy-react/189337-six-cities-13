@@ -20,14 +20,14 @@ export enum ResourcePath {
 }
 
 export enum MapSettings {
-  PinIconSizeX = 40,
-  PinIconSizeY = 40,
-  PinIconAnchorX = 20,
-  PinIconAnchorY = 40,
-  PinActiveIconSizeX = 40,
-  PinActiveIconSizeY = 40,
-  PinActiveIconAnchorX = 20,
-  PinActiveIconAnchorY = 40,
+  PinIconSizeX = 27,
+  PinIconSizeY = 39,
+  PinIconAnchorX = 13,
+  PinIconAnchorY = 39,
+  PinActiveIconSizeX = 27,
+  PinActiveIconSizeY = 39,
+  PinActiveIconAnchorX = 13,
+  PinActiveIconAnchorY = 39,
 }
 
 export const CITIES = [
