@@ -86,7 +86,8 @@ export const makeEmptyCitiesState = (): CitiesProcess => ({
 });
 
 export const makeEmptyGlobalState = (): GlobalProcess => ({
-  isLoading: false
+  isLoading: false,
+  loaderIsActive: true
 });
 
 export const makeEmptyOfferState = (): OfferProcess => ({

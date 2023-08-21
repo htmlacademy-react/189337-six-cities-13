@@ -1,4 +1,7 @@
 import { ChangeEvent, Fragment, memo } from 'react';
+import { getSendCommentStatus } from '../../store/reviews-process/selectors';
+import { useAppSelector } from '../../hooks';
+import { RequestStatus } from '../../const';
 
 type RatingProps = {
   rating: number;
@@ -14,6 +17,7 @@ const RATING_DATA = [
 ] as const;
 
 function Rating({ rating, setRating }: RatingProps) {
+  const sendCommentStatus = useAppSelector(getSendCommentStatus);
 
   const handleChangeRating = ({ target: { defaultValue } }: ChangeEvent<HTMLInputElement>) => {
     setRating(+defaultValue);
@@ -33,6 +37,7 @@ function Rating({ rating, setRating }: RatingProps) {
                 type="radio"
                 checked={rating === value}
                 onChange={handleChangeRating}
+                disabled={sendCommentStatus === RequestStatus.Pending}
               />
               <label
                 htmlFor={`${value}-stars`}

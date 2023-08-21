@@ -15,8 +15,8 @@ export enum OfferTypes {
 }
 
 export enum ResourcePath {
-  Pin = 'img/pin.svg',
-  PinActive = 'img/pin-active.svg'
+  Pin = '/img/pin.svg',
+  PinActive = '/img/pin-active.svg'
 }
 
 export enum MapSettings {

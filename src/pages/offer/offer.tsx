@@ -11,6 +11,7 @@ import Loader from '../../components/loader/loader';
 import { convertOfferDetailsToOffer } from '../../cities';
 import ButtonBookmark from '../../components/button-bookmark/button-bookmark';
 import { getOffer, getOffersNearby } from '../../store/offer-process/selectors';
+import classNames from 'classnames';
 
 function Offer(): JSX.Element {
   const { id } = useParams();
@@ -69,18 +70,18 @@ function Offer(): JSX.Element {
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: `${offer.rating * 10}%` }} />
+                    <span style={{ width: `${Math.round(offer.rating) * 20}%` }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">{offer.rating}</span>
                 </div>
                 <ul className="offer__features">
-                  <li className="offer__feature offer__feature--entire">Apartment</li>
+                  <li className="offer__feature offer__feature--entire">{offer.type.charAt(0).toUpperCase() + offer.type.slice(1)}</li>
                   <li className="offer__feature offer__feature--bedrooms">
-                    {offer.bedrooms} Bedrooms
+                    {offer.bedrooms} {offer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max {offer.maxAdults} adults
+                    Max {offer.maxAdults} {offer.maxAdults === 1 ? 'adult' : 'adults'}
                   </li>
                 </ul>
                 <div className="offer__price">
@@ -98,7 +99,7 @@ function Offer(): JSX.Element {
                 <div className="offer__host">
                   <h2 className="offer__host-title">Meet the host</h2>
                   <div className="offer__host-user user">
-                    <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                    <div className={classNames('offer__avatar-wrapper', { 'offer__avatar-wrapper--pro': offer.host.isPro }, 'user__avatar-wrapper')}>
                       <img
                         className="offer__avatar user__avatar"
                         src={offer.host.avatarUrl}

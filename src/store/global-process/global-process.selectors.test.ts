@@ -5,7 +5,7 @@ import { getIsLoading } from './selectors';
 describe('GlobalProcess selectors', () => {
   it('should return isLoading from state', () => {
     const isLoading = false;
-    const state: GlobalProcess = { isLoading };
+    const state: GlobalProcess = { isLoading, loaderIsActive: true };
 
     const result = getIsLoading({ [ActionGroup.Global]: state });
 

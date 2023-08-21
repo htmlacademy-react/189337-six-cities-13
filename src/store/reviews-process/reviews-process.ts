@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ActionGroup, RequestStatus, ReviewsConfig } from '../../const';
+import { ActionGroup, RequestStatus } from '../../const';
 import { fetchReviews, sendComment } from '../api-action';
 import { sortReviews } from '../../cities';
 import { ReviewsProcess } from '../../types/review';
@@ -24,15 +24,20 @@ export const reviewsProcess = createSlice({
     builder
       .addCase(fetchReviews.fulfilled, (state, { payload }) => {
         state.fetch.reviews = RequestStatus.Success;
-        state.reviews = sortReviews(payload).slice(0, ReviewsConfig.CountOnFavoritePage);
+        state.reviews = sortReviews(payload);
       })
       .addCase(fetchReviews.rejected, (state) => {
         state.fetch.reviews = RequestStatus.Error;
       })
       .addCase(sendComment.rejected, (state) => {
         state.fetch.sendComment = RequestStatus.Error;
-      }).addCase(sendComment.fulfilled, (state) => {
+      })
+      .addCase(sendComment.pending, (state) => {
+        state.fetch.sendComment = RequestStatus.Pending;
+      })
+      .addCase(sendComment.fulfilled, (state, { payload }) => {
         state.fetch.sendComment = RequestStatus.Success;
+        state.reviews.unshift(payload);
       });
   }
 });

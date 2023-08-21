@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, RequestStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Loader from '../loader/loader';
-import { getIsAuth } from '../../store/user-process/selectors';
+import { getCheckAuthStatus, getIsAuth } from '../../store/user-process/selectors';
 import { getIsLoading } from '../../store/global-process/selectors';
 
 type PrivateRouteProps = {
@@ -14,7 +14,9 @@ function PrivateRoute({
 }: PrivateRouteProps): JSX.Element {
   const isAuth = useAppSelector(getIsAuth);
   const isLoading = useAppSelector(getIsLoading);
-  if (isLoading) {
+  const checkAuthStatus = useAppSelector(getCheckAuthStatus);
+
+  if (isLoading || checkAuthStatus === RequestStatus.Idle) {
     return <Loader />;
   }
   return (
