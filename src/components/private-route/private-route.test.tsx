@@ -1,5 +1,5 @@
 import { MemoryHistory, createMemoryHistory } from 'history';
-import { ActionGroup, AppRoute } from '../../const';
+import { ActionGroup, AppRoute, RequestStatus } from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './private-route';
@@ -33,7 +33,17 @@ describe('Component: PrivateRoute', () => {
       mockHistory
     );
 
-    const { withStoreComponent } = withStore(preparedComponentWithHistory, makeFakeStore());
+    const { withStoreComponent } = withStore(preparedComponentWithHistory, {
+      ...makeFakeStore(),
+      [ActionGroup.User]: {
+        ...makeEmptyUserState(),
+        fetch: {
+          check: RequestStatus.Success,
+          login: RequestStatus.Idle,
+          logout: RequestStatus.Idle
+        }
+      }
+    });
 
     render(withStoreComponent);
 
@@ -56,7 +66,18 @@ describe('Component: PrivateRoute', () => {
       </Routes>,
       mockHistory
     );
-    const { withStoreComponent } = withStore(preparedComponentWithHistory, { ...makeFakeStore(), [ActionGroup.User]: { ...makeEmptyUserState(), isAuth: true } });
+    const { withStoreComponent } = withStore(preparedComponentWithHistory, {
+      ...makeFakeStore(),
+      [ActionGroup.User]: {
+        ...makeEmptyUserState(),
+        isAuth: true,
+        fetch: {
+          check: RequestStatus.Success,
+          login: RequestStatus.Idle,
+          logout: RequestStatus.Idle
+        }
+      }
+    });
 
     render(withStoreComponent);
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryHistory, createMemoryHistory } from 'history';
-import { ActionGroup, AppRoute } from '../../const';
+import { ActionGroup, AppRoute, RequestStatus } from '../../const';
 import App from './app';
 import { withHistory, withStore } from '../../utils/mock-component';
 import { makeEmptyUserState, makeFakeStore } from '../../utils/mock';
@@ -38,7 +38,13 @@ describe('Application Routing', () => {
     const favoritesContainerTestId = 'favorites-container';
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
-      [ActionGroup.User]: { ...makeEmptyUserState(), isAuth: true }
+      [ActionGroup.User]: {
+        ...makeEmptyUserState(), isAuth: true, fetch: {
+          check: RequestStatus.Success,
+          login: RequestStatus.Idle,
+          logout: RequestStatus.Idle
+        }
+      }
     }));
     mockHistory.push(AppRoute.Favorites);
 
