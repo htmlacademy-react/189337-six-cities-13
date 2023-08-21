@@ -11,7 +11,8 @@ export enum AppRoute {
 export enum OfferTypes {
   House = 'house',
   Apartment = 'apartment',
-  Hotel = 'hotel'
+  Hotel = 'hotel',
+  Room = 'room'
 }
 
 export enum ResourcePath {
