@@ -17,6 +17,4 @@ export type State = {
   [ActionGroup.User]: UserProcess;
 }
 
-export type Selector = ReturnType<typeof store.getState>;
-
 export type AppDispatch = typeof store.dispatch;
